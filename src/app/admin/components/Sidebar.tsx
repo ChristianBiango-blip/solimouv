@@ -3,6 +3,7 @@
 import Link from "next/link";
 import Image from "next/image";
 import { usePathname } from "next/navigation";
+import { useSession, signOut } from "next-auth/react";
 
 /**
  * Liens de navigation de la sidebar admin.
@@ -22,10 +23,12 @@ const NAV_LINKS = [
 
 /**
  * Sidebar de navigation pour les pages admin.
- * Affiche le logo, les liens de navigation et un lien retour vers le site.
+ * Affiche le logo, les liens de navigation, les infos utilisateur
+ * et un lien retour vers le site.
  */
 export default function Sidebar() {
   const pathname = usePathname();
+  const { data: session } = useSession();
 
   return (
     <aside className="fixed left-0 top-0 flex h-screen w-64 flex-col bg-gray-900 text-white">
@@ -64,6 +67,25 @@ export default function Sidebar() {
           );
         })}
       </nav>
+
+      {/* Infos utilisateur + Déconnexion */}
+      {session?.user && (
+        <div className="border-t border-white/10 px-3 py-4">
+          <div className="mb-3 px-4">
+            <p className="text-sm font-medium text-white">
+              {session.user.name}
+            </p>
+            <p className="text-xs text-gray-400">{session.user.email}</p>
+          </div>
+          <button
+            onClick={() => signOut({ callbackUrl: "/login" })}
+            className="flex w-full items-center gap-3 rounded-xl px-4 py-3 text-sm font-medium text-gray-400 transition-all hover:bg-white/5 hover:text-white"
+          >
+            <span className="text-lg">🚪</span>
+            Se déconnecter
+          </button>
+        </div>
+      )}
 
       {/* Lien retour vers le site public */}
       <div className="border-t border-white/10 px-3 py-4">

@@ -1,5 +1,6 @@
 import type { Metadata, Viewport } from "next";
 import RegisterServiceWorker from "./register-service-worker";
+import Providers from "./providers";
 import "./globals.css";
 import AxeptioWidget from "./components/AxeptioWidget";
 
@@ -32,11 +33,13 @@ export default function RootLayout({
         <link rel="manifest" href="/site.webmanifest" />
       </head>
       <body className="min-h-full flex flex-col font-sans">
-        <RegisterServiceWorker />
-        <div>
-          {children}
-        </div>
-        <AxeptioWidget />
+        <Providers>
+          <RegisterServiceWorker />
+          <div>
+            {children}
+          </div>
+          <AxeptioWidget />
+        </Providers>
       </body>
     </html>
   );
