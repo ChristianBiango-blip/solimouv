@@ -1,5 +1,16 @@
 import { z } from "zod";
 
+export const HANDICAP_OPTIONS = [
+  "malvoyant",
+  "ampute_haut_du_corps",
+  "ampute_bas_du_corps",
+  "malentendant",
+  "tetraplegique",
+  "paraplegique",
+  "autisme",
+  "avc",
+] as const;
+
 /**
  * Schéma de validation d'une inscription au festival.
  * Utilisé côté client et côté serveur.
@@ -32,7 +43,9 @@ export const festivalRegistrationSchema = z.object({
     .trim()
     .min(1, "Le téléphone est obligatoire.")
     .max(30, "Le téléphone ne doit pas dépasser 30 caractères."),
-  handicap: z.array(z.string()).default([]),
+  handicap: z.enum(HANDICAP_OPTIONS, {
+    message: "Veuillez sélectionner un handicap.",
+  }),
 });
 
 export type FestivalRegistrationFormType = z.infer<

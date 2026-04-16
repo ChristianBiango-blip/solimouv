@@ -1,9 +1,23 @@
 import { NextResponse } from "next/server";
 import { getDb } from "@/lib/mongodb";
-import { festivalRegistrationSchema } from "@/types/festival-registration";
+import {
+  festivalRegistrationSchema,
+  HANDICAP_OPTIONS,
+} from "@/types/festival-registration";
 
 const MAKE_WEBHOOK_URL =
   "https://hook.eu1.make.com/wxnehl1xuhaac45b1sl7ssd58oywwoet";
+
+const HANDICAP_LABELS: Record<(typeof HANDICAP_OPTIONS)[number], string> = {
+  malvoyant: "Malvoyant",
+  ampute_haut_du_corps: "Amputé haut du corps",
+  ampute_bas_du_corps: "Amputé bas du corps",
+  malentendant: "Malentendant",
+  tetraplegique: "Tétraplégique",
+  paraplegique: "Paraplégique",
+  autisme: "Autisme",
+  avc: "Accident vasculaire cérébral (AVC)",
+};
 
 /**
  * POST /api/festival-registrations
@@ -47,7 +61,7 @@ export async function POST(request: Request) {
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
           ...registration,
-          handicapLabel: registration.handicap.join(", "),
+          handicapLabel: HANDICAP_LABELS[registration.handicap],
           insertedId: result.insertedId.toString(),
         }),
       });

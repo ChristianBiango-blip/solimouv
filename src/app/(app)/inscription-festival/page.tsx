@@ -4,6 +4,7 @@ import { Controller, useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useSubmitFestivalRegistration } from "@/hooks/use-submit-festival-registration";
 import {
+  HANDICAP_OPTIONS,
   festivalRegistrationSchema,
   type FestivalRegistrationFormType,
 } from "@/types/festival-registration";
@@ -15,16 +16,16 @@ const SEX_OPTIONS = [
   { value: "non_precise", label: "Ne souhaite pas préciser" },
 ] as const;
 
-const HANDICAP_OPTIONS = [
-  { value: "malvoyant", label: "Malvoyant" },
-  { value: "ampute_haut_du_corps", label: "Amputé haut du corps" },
-  { value: "ampute_bas_du_corps", label: "Amputé bas du corps" },
-  { value: "malentendant", label: "Malentendant" },
-  { value: "tetraplegique", label: "Tétraplégique" },
-  { value: "paraplegique", label: "Paraplégique" },
-  { value: "autisme", label: "Autisme" },
-  { value: "avc", label: "Accident vasculaire cérébral (AVC)" },
-] as const;
+const HANDICAP_LABELS: Record<(typeof HANDICAP_OPTIONS)[number], string> = {
+  malvoyant: "Malvoyant",
+  ampute_haut_du_corps: "Amputé haut du corps",
+  ampute_bas_du_corps: "Amputé bas du corps",
+  malentendant: "Malentendant",
+  tetraplegique: "Tétraplégique",
+  paraplegique: "Paraplégique",
+  autisme: "Autisme",
+  avc: "Accident vasculaire cérébral (AVC)",
+};
 
 /**
  * Page d'inscription au festival Solimouv'.
@@ -46,7 +47,7 @@ export default function FestivalRegistrationPage() {
       sex: "non_precise",
       email: "",
       phone: "",
-      handicap: [],
+      handicap: "malvoyant",
     },
   });
 
@@ -61,7 +62,7 @@ export default function FestivalRegistrationPage() {
         sex: "non_precise",
         email: "",
         phone: "",
-        handicap: [],
+        handicap: "malvoyant",
       });
     }
   };
@@ -267,7 +268,7 @@ export default function FestivalRegistrationPage() {
                   Handicap
                 </label>
                 <p className="mt-1 text-xs leading-relaxed text-gray-500">
-                  Vous pouvez sélectionner plusieurs options.
+                  Sélectionnez une seule option.
                 </p>
               </div>
               <Controller
@@ -276,11 +277,11 @@ export default function FestivalRegistrationPage() {
                 render={({ field }) => (
                   <div className="grid gap-3 sm:grid-cols-2">
                     {HANDICAP_OPTIONS.map((option) => {
-                      const isChecked = field.value.includes(option.value);
+                      const isChecked = field.value === option;
 
                       return (
                         <label
-                          key={option.value}
+                          key={option}
                           className={`flex cursor-pointer items-start gap-3 rounded-2xl border-2 px-4 py-3 text-sm transition-all ${
                             isChecked
                               ? "border-brand-primary bg-brand-primary/5 text-gray-900"
@@ -288,19 +289,15 @@ export default function FestivalRegistrationPage() {
                           }`}
                         >
                           <input
-                            type="checkbox"
+                            type="radio"
+                            name="handicap"
                             checked={isChecked}
-                            onChange={(event) => {
-                              const nextValue = event.target.checked
-                                ? [...field.value, option.value]
-                                : field.value.filter(
-                                    (value) => value !== option.value
-                                  );
-                              field.onChange(nextValue);
-                            }}
+                            onChange={() => field.onChange(option)}
                             className="mt-1 h-4 w-4 rounded border-gray-300 text-brand-primary focus:ring-brand-primary"
                           />
-                          <span className="leading-tight">{option.label}</span>
+                          <span className="leading-tight">
+                            {HANDICAP_LABELS[option]}
+                          </span>
                         </label>
                       );
                     })}
