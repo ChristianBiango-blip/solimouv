@@ -1,26 +1,156 @@
 @import "tailwindcss";
 
+/* ===== Police PP Mori ===== */
+@font-face {
+  font-family: "PP Mori";
+  src: url("/fonts/ppmori/PPMori-Extralight.otf") format("opentype");
+  font-weight: 200;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "PP Mori";
+  src: url("/fonts/ppmori/PPMori-ExtralightItalic.otf") format("opentype");
+  font-weight: 200;
+  font-style: italic;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "PP Mori";
+  src: url("/fonts/ppmori/PPMori-Regular.otf") format("opentype");
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "PP Mori";
+  src: url("/fonts/ppmori/PPMori-RegularItalic.otf") format("opentype");
+  font-weight: 400;
+  font-style: italic;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "PP Mori";
+  src: url("/fonts/ppmori/PPMori-Semibold.otf") format("opentype");
+  font-weight: 600;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "PP Mori";
+  src: url("/fonts/ppmori/PPMori-SemiboldItalic.otf") format("opentype");
+  font-weight: 600;
+  font-style: italic;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "PP Mori";
+  src: url("/fonts/ppmori/PPMori-Black.otf") format("opentype");
+  font-weight: 900;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "PP Mori";
+  src: url("/fonts/ppmori/PPMori-BlackItalic.otf") format("opentype");
+  font-weight: 900;
+  font-style: italic;
+  font-display: swap;
+}
+
+/* ===== Design tokens (variables CSS) ===== */
 :root {
+  --color-primary: #4200fe;
+  --color-secondary: #f238a7;
+  --color-accent: #ff270b;
   --background: #ffffff;
   --foreground: #171717;
 }
 
+/* ===== Tailwind v4 : thème custom ===== */
 @theme inline {
+  /* Couleurs de marque */
+  --color-brand-primary: var(--color-primary);
+  --color-brand-secondary: var(--color-secondary);
+  --color-brand-accent: var(--color-accent);
+
+  /* Couleurs sémantiques */
   --color-background: var(--background);
   --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
+
+  /* Police */
+  --font-sans: "PP Mori", sans-serif;
+
+  /* Ombres */
+  --shadow-glow: 0 0 40px rgba(66, 0, 254, 0.35);
+
+  /* Border radius */
+  --radius-xl: 1rem;
+  --radius-2xl: 1.5rem;
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
-}
-
+/* ===== Base styling ===== */
 body {
   background: var(--background);
   color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+  font-family: "PP Mori", sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+/* ===== Classes utilitaires réutilisables ===== */
+@utility btn-primary {
+  background-color: var(--color-brand-primary);
+  color: white;
+  padding: 0.625rem 1.25rem;
+  border-radius: 1rem;
+  font-weight: 500;
+  transition: opacity 0.2s;
+  cursor: pointer;
+
+  &:hover {
+    opacity: 0.9;
+  }
+
+  &:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+  }
+}
+
+@utility btn-secondary {
+  border: 1px solid #d1d5db;
+  padding: 0.625rem 1.25rem;
+  border-radius: 1rem;
+  transition: border-color 0.2s;
+
+  &:hover {
+    border-color: var(--color-brand-primary);
+  }
+}
+
+@utility container-custom {
+  max-width: 80rem;
+  margin-left: auto;
+  margin-right: auto;
+  padding-left: 1.5rem;
+  padding-right: 1.5rem;
+}
+
+@utility brand-gradient {
+  background-image: linear-gradient(135deg, #4200fe, #f238a7, #ff270b);
+}
+
+@utility brand-gradient-text {
+  background-image: linear-gradient(135deg, #4200fe, #f238a7, #ff270b);
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
 }
