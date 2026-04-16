@@ -6,7 +6,7 @@ import { getToken } from "next-auth/jwt";
  * Middleware principal de l'application.
  *
  * Règles :
- * - Pages authentifiées (/accueil, /programme, /a-propos, /partenaires, /mon-compte, /contact)
+ * - Pages authentifiées (/accueil, /programme, /a-propos, /partenaires, /dons, /mon-compte, /contact)
  *   → nécessite connexion, sinon redirige vers /connexion
  * - /admin/* → nécessite connexion + rôle "admin"
  * - Utilisateur connecté sur /connexion ou /inscription → redirige vers /accueil
@@ -26,6 +26,7 @@ export async function middleware(req: NextRequest) {
     "/programme",
     "/a-propos",
     "/partenaires",
+    "/dons",
     "/mon-compte",
     "/contact",
   ];

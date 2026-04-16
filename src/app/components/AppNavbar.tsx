@@ -14,6 +14,7 @@ const NAV_LINKS = [
   { href: "/programme", label: "Programme", icon: "📅" },
   { href: "/a-propos", label: "À propos", icon: "💡" },
   { href: "/partenaires", label: "Partenaires", icon: "🤝" },
+  { href: "/dons", label: "Dons", icon: "💝" },
   { href: "/mon-compte", label: "Mon Compte", icon: "👤" },
   { href: "/contact", label: "Contact", icon: "✉️" },
 ];
@@ -67,6 +68,13 @@ export default function AppNavbar() {
 
         {/* Actions droite */}
         <div className="flex items-center gap-3">
+          <Link
+            href="/inscription-festival"
+            className="inline-flex whitespace-nowrap rounded-xl bg-brand-primary px-3 py-2 text-xs font-semibold text-white shadow-[0_12px_30px_rgba(66,0,254,0.22)] transition-all hover:translate-y-[-1px] hover:bg-brand-secondary sm:px-4 sm:py-2.5 sm:text-sm"
+          >
+            S'inscrire <span className="hidden sm:inline">au festival</span>
+          </Link>
+
           <PWAInstallButton />
 
           {/* Lien admin si rôle admin */}
