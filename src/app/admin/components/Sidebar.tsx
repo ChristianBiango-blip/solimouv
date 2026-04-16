@@ -15,7 +15,7 @@ const NAV_LINKS = [
     icon: "🏠",
   },
   {
-    href: "/admin/workshops",
+    href: "/admin/ateliers",
     label: "Ateliers",
     icon: "📅",
   },
@@ -42,7 +42,7 @@ export default function Sidebar() {
           className="shrink-0"
         />
         <div>
-          <p className="text-sm font-semibold tracking-wide">Solimouv'</p>
+          <p className="text-sm font-semibold tracking-wide">Solimouv&apos;</p>
           <p className="text-xs text-gray-400">Administration</p>
         </div>
       </div>
@@ -78,7 +78,7 @@ export default function Sidebar() {
             <p className="text-xs text-gray-400">{session.user.email}</p>
           </div>
           <button
-            onClick={() => signOut({ callbackUrl: "/login" })}
+            onClick={() => signOut({ callbackUrl: "/connexion" })}
             className="flex w-full items-center gap-3 rounded-xl px-4 py-3 text-sm font-medium text-gray-400 transition-all hover:bg-white/5 hover:text-white"
           >
             <span className="text-lg">🚪</span>

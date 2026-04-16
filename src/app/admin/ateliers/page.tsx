@@ -15,7 +15,7 @@ import {
 
 /**
  * Page d'administration : listing + formulaire d'ajout/modification d'ateliers.
- * Accessible via /admin/workshops
+ * Accessible via /admin/ateliers
  */
 
 const CATEGORY_OPTIONS = [
@@ -83,12 +83,12 @@ export default function AdminWorkshopsPage() {
       setValue("location", editingWorkshop.location);
       setValue("capacity", editingWorkshop.capacity?.toString() || "");
       setValue("category", editingWorkshop.category as WorkshopFormType["category"]);
-      setShowForm(true);
     }
   }, [editingWorkshop, setValue]);
 
   function handleEdit(workshop: Workshop) {
     setEditingWorkshop(workshop);
+    setShowForm(true);
   }
 
   function handleCancelEdit() {
@@ -141,7 +141,7 @@ export default function AdminWorkshopsPage() {
         <div>
           <h1 className="text-3xl font-bold text-gray-900">📅 Ateliers</h1>
           <p className="mt-1 text-gray-500">
-            Gérez les ateliers du festival Solimouv'
+            Gérez les ateliers du festival Solimouv&apos;
           </p>
         </div>
         {!showForm && (
@@ -448,7 +448,7 @@ export default function AdminWorkshopsPage() {
             <p className="text-4xl">📭</p>
             <p className="mt-3 text-gray-500">Aucun atelier pour le moment.</p>
             <p className="text-sm text-gray-400">
-              Cliquez sur "+ Ajouter un atelier" pour commencer.
+              Cliquez sur &quot;+ Ajouter un atelier&quot; pour commencer.
             </p>
           </div>
         )}

@@ -12,8 +12,9 @@ import PWAInstallButton from "./PWAInstallButton";
 const NAV_LINKS = [
   { href: "/accueil", label: "Accueil", icon: "🏠" },
   { href: "/programme", label: "Programme", icon: "📅" },
-  { href: "/about", label: "À propos", icon: "💡" },
-  { href: "/partners", label: "Partenaires", icon: "🤝" },
+  { href: "/a-propos", label: "À propos", icon: "💡" },
+  { href: "/partenaires", label: "Partenaires", icon: "🤝" },
+  { href: "/mon-compte", label: "Mon Compte", icon: "👤" },
   { href: "/contact", label: "Contact", icon: "✉️" },
 ];
 
@@ -39,7 +40,7 @@ export default function AppNavbar() {
             className="rounded-lg bg-brand-primary p-1.5"
           />
           <span className="brand-gradient-text text-xl font-black">
-            Solimouv'
+            Solimouv&apos;
           </span>
         </Link>
 

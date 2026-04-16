@@ -8,9 +8,9 @@ import Link from "next/link";
 /**
  * Page d'inscription.
  * Crée le compte ET connecte l'utilisateur automatiquement.
- * Accessible via /register
+ * Accessible via /inscription
  */
-export default function RegisterPage() {
+export default function InscriptionPage() {
   const router = useRouter();
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
@@ -50,8 +50,8 @@ export default function RegisterPage() {
         router.push("/accueil");
         router.refresh();
       } else {
-        // Si la connexion échoue, rediriger vers login
-        router.push("/login?registered=true");
+        // Si la connexion échoue, rediriger vers connexion
+        router.push("/connexion?registered=true");
       }
     } catch {
       setError("Impossible de contacter le serveur.");
@@ -65,7 +65,7 @@ export default function RegisterPage() {
         {/* En-tête */}
         <div className="mb-8 text-center">
           <h1 className="brand-gradient-text text-4xl font-black">
-            Solimouv'
+            Solimouv&apos;
           </h1>
           <p className="mt-2 text-gray-500">Créer un compte</p>
         </div>
@@ -162,7 +162,7 @@ export default function RegisterPage() {
         <p className="mt-6 text-center text-sm text-gray-400">
           Déjà un compte ?{" "}
           <Link
-            href="/login"
+            href="/connexion"
             className="font-medium text-brand-primary hover:underline"
           >
             Se connecter
