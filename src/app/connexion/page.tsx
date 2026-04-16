@@ -1,12 +1,13 @@
 "use client";
 
 import { useState } from "react";
+import Link from "next/link";
 import { signIn } from "next-auth/react";
 import { useRouter } from "next/navigation";
 
 /**
  * Page de connexion.
- * Accessible via /login
+ * Accessible via /connexion
  */
 export default function LoginPage() {
   const router = useRouter();
@@ -30,7 +31,7 @@ export default function LoginPage() {
       setError(result.error);
       setLoading(false);
     } else {
-      router.push("/admin/workshops");
+      router.push("/admin/ateliers");
       router.refresh();
     }
   }
@@ -41,9 +42,9 @@ export default function LoginPage() {
         {/* En-tête */}
         <div className="mb-8 text-center">
           <h1 className="brand-gradient-text text-4xl font-black">
-            Solimouv'
+            Solimouv&apos;
           </h1>
-          <p className="mt-2 text-gray-500">Connexion à l'administration</p>
+          <p className="mt-2 text-gray-500">Connexion a l&apos;administration</p>
         </div>
 
         {/* Formulaire */}
@@ -116,9 +117,9 @@ export default function LoginPage() {
 
         {/* Retour */}
         <p className="mt-6 text-center text-sm text-gray-400">
-          <a href="/" className="hover:text-brand-primary transition-colors">
+          <Link href="/" className="hover:text-brand-primary transition-colors">
             ← Retour au site
-          </a>
+          </Link>
         </p>
       </div>
     </div>

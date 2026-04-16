@@ -26,7 +26,7 @@ export default function Navbar() {
             className="rounded-lg bg-brand-primary p-1.5"
           />
           <span className="brand-gradient-text text-xl font-black">
-            Solimouv'
+            Solimouv&apos;
           </span>
         </Link>
 
@@ -39,7 +39,7 @@ export default function Navbar() {
             Accueil
           </Link>
           <Link
-            href="/about"
+            href="/a-propos"
             className="text-sm font-medium text-gray-600 transition-colors hover:text-brand-primary"
           >
             À propos
@@ -67,7 +67,7 @@ export default function Navbar() {
               {/* Si admin, lien vers l'admin */}
               {session.user.role === "admin" && (
                 <Link
-                  href="/admin/workshops"
+                  href="/admin/ateliers"
                   className="hidden rounded-xl bg-gray-100 px-3 py-2 text-xs font-medium text-gray-700 transition-colors hover:bg-gray-200 sm:block"
                 >
                   Admin
@@ -83,13 +83,13 @@ export default function Navbar() {
           ) : (
             <div className="flex items-center gap-2">
               <Link
-                href="/login"
+                href="/connexion"
                 className="rounded-xl border-2 border-gray-200 px-4 py-2 text-sm font-medium text-gray-700 transition-all hover:border-brand-primary hover:text-brand-primary"
               >
                 Connexion
               </Link>
               <Link
-                href="/register"
+                href="/inscription"
                 className="btn-primary hidden rounded-xl px-4 py-2 text-sm sm:inline-flex"
               >
                 Inscription

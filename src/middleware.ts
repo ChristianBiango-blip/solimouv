@@ -6,10 +6,10 @@ import { getToken } from "next-auth/jwt";
  * Middleware principal de l'application.
  *
  * Règles :
- * - Pages authentifiées (/accueil, /programme, /about, /partners, /contact)
- *   → nécessite connexion, sinon redirige vers /login
+ * - Pages authentifiées (/accueil, /programme, /a-propos, /partenaires, /mon-compte, /contact)
+ *   → nécessite connexion, sinon redirige vers /connexion
  * - /admin/* → nécessite connexion + rôle "admin"
- * - Utilisateur connecté sur /login ou /register → redirige vers /accueil
+ * - Utilisateur connecté sur /connexion ou /inscription → redirige vers /accueil
  * - / (landing) → reste public
  */
 export async function middleware(req: NextRequest) {
@@ -24,8 +24,9 @@ export async function middleware(req: NextRequest) {
   const authenticatedRoutes = [
     "/accueil",
     "/programme",
-    "/about",
-    "/partners",
+    "/a-propos",
+    "/partenaires",
+    "/mon-compte",
     "/contact",
   ];
 
@@ -36,7 +37,7 @@ export async function middleware(req: NextRequest) {
   // Protection des pages authentifiées
   if (isAuthRoute) {
     if (!token) {
-      const loginUrl = new URL("/login", req.url);
+      const loginUrl = new URL("/connexion", req.url);
       loginUrl.searchParams.set("callbackUrl", pathname);
       return NextResponse.redirect(loginUrl);
     }
@@ -58,8 +59,8 @@ export async function middleware(req: NextRequest) {
     return NextResponse.redirect(new URL("/admin/accueil", req.url));
   }
 
-  // Utilisateur connecté : rediriger vers /accueil s'il va sur /, /login ou /register
-  if (token && (pathname === "/" || pathname === "/login" || pathname === "/register")) {
+  // Utilisateur connecté : rediriger vers /accueil s'il va sur /, /connexion ou /inscription
+  if (token && (pathname === "/" || pathname === "/connexion" || pathname === "/inscription")) {
     return NextResponse.redirect(new URL("/accueil", req.url));
   }
 
@@ -71,11 +72,12 @@ export const config = {
     "/",
     "/accueil/:path*",
     "/programme/:path*",
-    "/about/:path*",
-    "/partners/:path*",
+    "/a-propos/:path*",
+    "/partenaires/:path*",
+    "/mon-compte/:path*",
     "/contact/:path*",
     "/admin/:path*",
-    "/login",
-    "/register",
+    "/connexion",
+    "/inscription",
   ],
 };
