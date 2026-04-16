@@ -109,8 +109,8 @@ export default function BlogPage() {
                     <p className="mt-3 flex-1 text-sm leading-6 text-gray-600 sm:text-base">
                       {article.excerpt}
                     </p>
-                    <span className="mt-5 text-sm font-semibold text-brand-primary">
-                      Voir plus →
+                    <span className="mt-5 inline-flex w-fit rounded-full bg-[#F238A7] px-4 py-2 text-sm font-semibold text-white shadow-[0_12px_30px_rgba(242,56,167,0.28)] transition-transform hover:-translate-y-0.5">
+                      Voir plus
                     </span>
                   </div>
                 </Link>

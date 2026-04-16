@@ -62,7 +62,11 @@ export default function Home() {
               Rencontres, activités, engagement, moments partagés
             </p>
             <h1>Vivez des expériences qui vous rapprochent des autres</h1>
-            <a className="landing-download-cta" href="#concept">
+            <a
+              className="landing-download-cta"
+              href="#concept"
+              style={{ color: "#000000" }}
+            >
               Découvrir
             </a>
           </div>
@@ -189,10 +193,18 @@ export default function Home() {
           </div>
 
           <div className="landing-store-buttons">
-            <a className="landing-store-button" href="#contact">
+            <a
+              className="landing-store-button"
+              href="#contact"
+              style={{ color: "#ffffff" }}
+            >
               Disponible sur Google Play
             </a>
-            <a className="landing-store-button" href="#contact">
+            <a
+              className="landing-store-button"
+              href="#contact"
+              style={{ color: "#ffffff" }}
+            >
               Disponible sur App Store
             </a>
           </div>
