@@ -71,10 +71,10 @@ export default function AppNavbar() {
           {/* Lien admin si rôle admin */}
           {session?.user?.role === "admin" && (
             <Link
-              href="/admin/workshops"
-              className="hidden rounded-xl bg-gray-100 px-3 py-2 text-xs font-medium text-gray-700 transition-colors hover:bg-gray-200 sm:block"
+              href="/admin/accueil"
+              className="rounded-xl bg-brand-primary/10 px-4 py-2 text-sm font-semibold text-brand-primary transition-colors hover:bg-brand-primary hover:text-white"
             >
-              ⚙️ Admin
+              Accès admin
             </Link>
           )}
 

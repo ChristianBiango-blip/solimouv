@@ -53,9 +53,9 @@ export async function middleware(req: NextRequest) {
     }
   }
 
-  // Admin connecté sur /admin/connexion → rediriger vers /admin/workshops
+  // Admin connecté sur /admin/connexion → rediriger vers /admin/accueil
   if (token && token.role === "admin" && pathname === "/admin/connexion") {
-    return NextResponse.redirect(new URL("/admin/workshops", req.url));
+    return NextResponse.redirect(new URL("/admin/accueil", req.url));
   }
 
   // Utilisateur connecté : rediriger vers /accueil s'il va sur /, /login ou /register

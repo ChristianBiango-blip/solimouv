@@ -31,7 +31,7 @@ export default function AdminConnexionPage() {
       setError("Email ou mot de passe incorrect.");
       setLoading(false);
     } else {
-      router.push("/admin/workshops");
+      router.push("/admin/accueil");
       router.refresh();
     }
   }

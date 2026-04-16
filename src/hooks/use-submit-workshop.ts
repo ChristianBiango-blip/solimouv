@@ -1,23 +1,25 @@
-"use client";
-
-import { useState } from "react";
+import { useMutation, useQueryClient } from "@tanstack/react-query";
 import type { WorkshopFormType } from "@/types/workshop";
 
 /**
+ * Réponse de l'API après création d'un atelier.
+ */
+interface WorkshopMutationResponse {
+  success: boolean;
+  message: string;
+  insertedId: string;
+}
+
+/**
  * Hook pour soumettre un atelier via l'API.
- * Gère l'état de chargement, le succès et l'erreur.
+ * Utilise useMutation de React Query.
+ * Invalide le cache "workshops" après une création réussie.
  */
 export function useSubmitWorkshop() {
-  const [isPending, setIsPending] = useState(false);
-  const [isSuccess, setIsSuccess] = useState(false);
-  const [error, setError] = useState<string | null>(null);
+  const queryClient = useQueryClient();
 
-  const mutate = async (data: WorkshopFormType) => {
-    setIsPending(true);
-    setIsSuccess(false);
-    setError(null);
-
-    try {
+  return useMutation<WorkshopMutationResponse, Error, WorkshopFormType>({
+    mutationFn: async (data: WorkshopFormType) => {
       const response = await fetch("/api/workshops", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
@@ -30,17 +32,11 @@ export function useSubmitWorkshop() {
         throw new Error(result.error || "Erreur lors de l'ajout de l'atelier.");
       }
 
-      setIsSuccess(true);
-      return result;
-    } catch (err) {
-      const message =
-        err instanceof Error ? err.message : "Une erreur inattendue est survenue.";
-      setError(message);
-      throw err;
-    } finally {
-      setIsPending(false);
-    }
-  };
-
-  return { mutate, isPending, isSuccess, error };
+      return result as WorkshopMutationResponse;
+    },
+    onSuccess: () => {
+      // Invalide le cache pour refetch la liste
+      queryClient.invalidateQueries({ queryKey: ["workshops"] });
+    },
+  });
 }
