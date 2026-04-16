@@ -2,6 +2,7 @@ import type { Metadata, Viewport } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
 import RegisterServiceWorker from "./register-service-worker";
 import "./globals.css";
+import AxeptioWidget from "./components/AxeptioWidget";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -46,7 +47,10 @@ export default function RootLayout({
       </head>
       <body className="min-h-full flex flex-col">
         <RegisterServiceWorker />
+        <div>
         {children}
+        </div>
+        <AxeptioWidget />
       </body>
     </html>
   );
