@@ -10,14 +10,14 @@ import { useSession, signOut } from "next-auth/react";
  */
 const NAV_LINKS = [
   {
+    href: "/admin/accueil",
+    label: "Tableau de bord",
+    icon: "🏠",
+  },
+  {
     href: "/admin/workshops",
     label: "Ateliers",
     icon: "📅",
-  },
-  {
-    href: "/admin",
-    label: "Tableau de bord",
-    icon: "🏠",
   },
 ];
 
