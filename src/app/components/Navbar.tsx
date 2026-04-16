@@ -12,6 +12,7 @@ import PWAInstallButton from "./PWAInstallButton";
 const PUBLIC_NAV_LINKS = [
   { href: "/", label: "Accueil" },
   { href: "/a-propos", label: "À propos" },
+  { href: "/blog", label: "Blog" },
   { href: "/programme", label: "Programme" },
   { href: "/dons", label: "Dons" },
   { href: "/contact", label: "Contact" },
@@ -43,7 +44,7 @@ export default function Navbar() {
               className="rounded-lg bg-brand-primary p-1.5"
             />
             <span className="brand-gradient-text text-xl font-black">
-              Solimouv'
+              Solimouv&apos;
             </span>
           </Link>
 
