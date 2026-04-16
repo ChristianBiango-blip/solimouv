@@ -1,16 +1,307 @@
-import Navbar from "./components/Navbar";
+import Image from "next/image";
+import HomeEventCarousel from "./components/HomeEventCarousel";
+
+const eventCards = [
+  {
+    title: "Rencontres locales",
+    description: "Des groupes qui se forment naturellement autour d'envies communes.",
+    image: "/blog/event-1.jpeg",
+    alt: "Activité sportive accompagnée sur le terrain",
+    imageClassName: "landing-event-image-portrait",
+  },
+  {
+    title: "Expériences en mouvement",
+    description: "Marches, activités, scènes partagées et élan collectif dans une même journée.",
+    image: "/blog/event-2.png",
+    alt: "Pratique sportive inclusive en fauteuil roulant",
+  },
+  {
+    title: "Moments solidaires",
+    description: "Un cadre vivant pour s'engager, transmettre et célébrer ensemble.",
+    image: "/blog/event-ping-pong.png",
+    alt: "Partie de tennis de table en plein air",
+  },
+  {
+    title: "Instants partagés",
+    description: "Une ambiance conviviale où chaque présence compte vraiment.",
+    image: "/blog/event-4.png",
+    alt: "Activité sportive inclusive en salle",
+  },
+];
+
+const socialLinks = [
+  { label: "Site internet", href: "https://www.unispourlesport.fr/", icon: "⌂" },
+  { label: "Instagram", href: "https://www.instagram.com/unispourlesport/", icon: "◎" },
+  { label: "LinkedIn", href: "https://www.linkedin.com/company/up-sport-unis-pour-le-sport/", icon: "in" },
+  { label: "Facebook", href: "https://www.facebook.com/upsportunispourlesport", icon: "f" },
+];
 
 export default function Home() {
   return (
-    <div className="min-h-screen">
-      <Navbar />
-      <main className="flex flex-col items-center justify-center px-6 py-24">
-        <h1 className="brand-gradient-text text-6xl font-black">
-          Solimouv'
-        </h1>
-        <p className="mt-4 max-w-md text-center text-lg text-gray-500">
-          Festival sport & inclusion par Up Sport !
-        </p>
+    <div className="landing-page">
+      <section className="landing-hero-shell">
+        <header className="landing-site-header">
+          <a className="landing-brand" href="#hero" aria-label="Accueil Solimouv">
+            <Image
+              className="landing-brand-logo"
+              src="/blog/blanc-solimouv.svg"
+              alt="Solimouv"
+              width={172}
+              height={40}
+              priority
+            />
+          </a>
+          <a className="landing-header-cta" href="#contact">
+            Inscrivez-vous
+          </a>
+        </header>
+
+        <section className="landing-hero" id="hero">
+          <div className="landing-hero-copy">
+            <p className="landing-hero-kicker">
+              Rencontres, activités, engagement, moments partagés
+            </p>
+            <h1>Vivez des expériences qui vous rapprochent des autres</h1>
+            <a className="landing-download-cta" href="#concept">
+              Découvrir
+            </a>
+          </div>
+
+          <section
+            className="landing-immersive-media"
+            id="video-experience"
+            aria-label="Photo immersive Solimouv"
+          >
+            <div className="landing-hero-photo" aria-label="Photo immersive Solimouv">
+              <div className="landing-video-overlay">
+                <span className="landing-video-badge">Ambiance Solimouv</span>
+                <h2>Des visages, des sourires, des mouvements qui deviennent de vrais liens.</h2>
+              </div>
+            </div>
+          </section>
+        </section>
+      </section>
+
+      <main>
+        <section className="landing-concept-section" id="concept">
+          <div className="landing-concept-visual-wrap">
+            <div className="landing-organic-shape" aria-hidden="true"></div>
+            <div className="landing-concept-visual">
+              <div className="landing-concept-portrait landing-portrait-single">
+                <Image
+                  src="/blog/concept-image.jpeg"
+                  alt="Moment de jeu et de partage sur un terrain"
+                  fill
+                  sizes="(max-width: 960px) 100vw, 40vw"
+                />
+              </div>
+            </div>
+          </div>
+
+          <div className="landing-concept-copy">
+            <h2>Notre concept</h2>
+            <p>
+              Solimouv crée des occasions simples et vraies de se rencontrer autour
+              d’activités, d’initiatives locales et d’expériences partagées qui
+              remettent l’humain au centre.
+            </p>
+            <p>
+              La plateforme relie celles et ceux qui veulent bouger, participer,
+              s’engager et vivre des instants réels, dans une ambiance chaleureuse qui
+              transforme chaque rencontre en souvenir collectif.
+            </p>
+          </div>
+        </section>
+
+        <section className="landing-event-section" id="event">
+          <div className="landing-section-heading">
+            <h2>Notre événement</h2>
+            <p>
+              Des formats vivants pour se retrouver, participer et créer une énergie
+              commune.
+            </p>
+          </div>
+
+          <HomeEventCarousel events={eventCards} />
+        </section>
+
+        <section className="landing-location-section" id="location">
+          <div className="landing-location-copy">
+            <h2>L’adresse du lieu</h2>
+
+            <div className="landing-location-block">
+              <h3>📍 Centre Sportif Charles Moureu, 75013 Paris</h3>
+              <p>
+                Le rendez-vous se tient au Centre Sportif Charles Moureu, au cœur du
+                13e arrondissement de Paris.
+              </p>
+            </div>
+
+            <div className="landing-location-block">
+              <h3>📆 Samedi 6 juin 2026 de 10h à 18h</h3>
+              <p>
+                Une journée complète de rencontres, d’activités et de moments partagés
+                vous attend sur place.
+              </p>
+            </div>
+
+            <div className="landing-location-block">
+              <h3>♿ Site accessible</h3>
+              <p>
+                Le site est accessible aux personnes à mobilité réduite pour permettre
+                à chacun de profiter de l’événement.
+              </p>
+            </div>
+
+            <div className="landing-location-block">
+              <h3>🎟 Entrée gratuite</h3>
+              <p>
+                Entrée gratuite, inscription sur place. Pour toute information
+                complémentaire, écrivez à
+                {" "}
+                <a className="landing-inline-link" href="mailto:unispourlesport@yahoo.fr">
+                  unispourlesport@yahoo.fr
+                </a>
+                .
+              </p>
+            </div>
+          </div>
+
+          <div className="landing-location-media">
+            <div className="landing-location-image-block" aria-label="Carte du lieu">
+              <Image
+                src="/blog/adresse-lieu-map.jpg"
+                alt="Carte du Centre Sportif Charles Moureu à Paris"
+                width={1471}
+                height={768}
+              />
+            </div>
+          </div>
+        </section>
+
+        <section className="landing-app-section" id="application">
+          <div className="landing-app-copy">
+            <h2>L’application qui rassemble les gens en mouvement</h2>
+            <p>
+              Retrouvez les rencontres, activités et événements Solimouv dans une
+              expérience mobile simple, fluide et humaine.
+            </p>
+          </div>
+
+          <div className="landing-store-buttons">
+            <a className="landing-store-button" href="#contact">
+              Disponible sur Google Play
+            </a>
+            <a className="landing-store-button" href="#contact">
+              Disponible sur App Store
+            </a>
+          </div>
+
+          <div className="landing-phones-stage" aria-label="Aperçu de l'application Solimouv">
+            <div className="landing-floating-card landing-float-left-top">+ 500 participants</div>
+            <div className="landing-floating-card landing-float-right-top">15 associations</div>
+
+            <div className="landing-phone landing-phone-left">
+              <div className="landing-phone-screen">
+                <span className="landing-phone-pill"></span>
+                <div className="landing-phone-content landing-phone-content-left"></div>
+              </div>
+            </div>
+
+            <div className="landing-phone landing-phone-center">
+              <div className="landing-phone-screen">
+                <span className="landing-phone-pill"></span>
+                <div className="landing-phone-content landing-phone-content-center"></div>
+              </div>
+            </div>
+
+            <div className="landing-phone landing-phone-right">
+              <div className="landing-phone-screen">
+                <span className="landing-phone-pill"></span>
+                <div className="landing-phone-content landing-phone-content-right"></div>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <section className="landing-contact-section" id="contact">
+          <div className="landing-contact-info">
+            <h2>Comment pouvons-nous vous aider ?</h2>
+            <p>
+              Nous accompagnons vos demandes autour des événements, de l’application et
+              des collaborations locales.
+            </p>
+
+            <div className="landing-contact-message">
+              <p>
+                Une question ? Une remarque ? Envie d’en savoir plus pour vous ou pour
+                des personnes que vous accompagnez ? N’hésitez pas à nous envoyer un
+                message, nous veillerons à vous répondre dans les plus brefs délais.
+              </p>
+              <p>Vous pouvez nous joindre via :</p>
+              <p>
+                <strong>email :</strong>
+                {" "}
+                <a className="landing-inline-link" href="mailto:contact@unispourlesport.paris">
+                  contact@unispourlesport.paris
+                </a>
+              </p>
+            </div>
+
+            <div className="landing-social-links" aria-label="Réseaux sociaux Solimouv">
+              {socialLinks.map((link) => (
+                <a
+                  key={link.label}
+                  className="landing-social-link"
+                  href={link.href}
+                  target="_blank"
+                  rel="noreferrer"
+                  aria-label={link.label}
+                >
+                  <span className="landing-social-icon">{link.icon}</span>
+                </a>
+              ))}
+            </div>
+          </div>
+
+          <div className="landing-contact-form-wrap">
+            <form className="landing-contact-form">
+              <div className="landing-form-row">
+                <label>
+                  <span>Prénom</span>
+                  <input type="text" name="first-name" placeholder="Votre prénom" />
+                </label>
+                <label>
+                  <span>Nom</span>
+                  <input type="text" name="last-name" placeholder="Votre nom" />
+                </label>
+              </div>
+
+              <label>
+                <span>Email</span>
+                <input type="email" name="email" placeholder="vous@exemple.com" />
+              </label>
+
+              <label>
+                <span>Téléphone</span>
+                <input type="tel" name="phone" placeholder="+33 6 00 00 00 00" />
+              </label>
+
+              <label>
+                <span>Message</span>
+                <textarea
+                  name="message"
+                  rows={5}
+                  placeholder="Parlez-nous de votre besoin"
+                ></textarea>
+              </label>
+
+              <button className="landing-submit-button" type="submit">
+                Envoyer
+              </button>
+            </form>
+          </div>
+        </section>
       </main>
     </div>
   );

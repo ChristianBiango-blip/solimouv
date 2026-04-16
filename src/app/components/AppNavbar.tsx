@@ -13,6 +13,7 @@ import PWAInstallButton from "./PWAInstallButton";
 const NAV_LINKS = [
   { href: "/accueil", label: "Accueil", icon: "🏠" },
   { href: "/programme", label: "Programme", icon: "📅" },
+  { href: "/blog", label: "Blog", icon: "📰" },
   { href: "/a-propos", label: "À propos", icon: "💡" },
   { href: "/partenaires", label: "Partenaires", icon: "🤝" },
   { href: "/dons", label: "Dons", icon: "💝" },
@@ -77,7 +78,7 @@ export default function AppNavbar() {
               href="/inscription-festival"
               className="hidden whitespace-nowrap rounded-xl bg-brand-primary px-4 py-2.5 text-sm font-semibold text-white shadow-[0_12px_30px_rgba(66,0,254,0.22)] transition-all hover:translate-y-[-1px] hover:bg-brand-secondary sm:inline-flex"
             >
-              S'inscrire au festival
+              S&apos;inscrire au festival
             </Link>
 
             <div className="hidden sm:block">
@@ -192,7 +193,7 @@ export default function AppNavbar() {
                 onClick={closeMenu}
                 className="block rounded-xl bg-brand-primary px-4 py-3 text-center text-sm font-semibold text-white transition-colors hover:bg-brand-secondary"
               >
-                S'inscrire au festival
+                S&apos;inscrire au festival
               </Link>
 
               {session?.user?.role === "admin" && (
