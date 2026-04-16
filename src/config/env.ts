@@ -11,6 +11,10 @@ export const env = {
   MONGODB_URI: process.env.MONGODB_URI ?? "",
   MONGODB_DB: process.env.MONGODB_DB || "solimouv",
 
+  // NextAuth
+  NEXTAUTH_SECRET: process.env.NEXTAUTH_SECRET ?? "",
+  NEXTAUTH_URL: process.env.NEXTAUTH_URL ?? "http://localhost:3000",
+
   // Axeptio (consentement cookies)
   NEXT_PUBLIC_AXEPTIO_CLIENT_ID: process.env.NEXT_PUBLIC_AXEPTIO_CLIENT_ID ?? "",
   NEXT_PUBLIC_AXEPTIO_COOKIES_VERSION:
@@ -25,7 +29,10 @@ export const env = {
  * Lance une erreur descriptive si une variable est manquante.
  */
 export function validateEnv() {
-  const required: (keyof typeof env)[] = ["MONGODB_URI"];
+  const required: (keyof typeof env)[] = [
+    "MONGODB_URI",
+    "NEXTAUTH_SECRET",
+  ];
 
   for (const key of required) {
     if (!env[key]) {
