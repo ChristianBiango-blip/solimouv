@@ -2,10 +2,12 @@
 
 import { useState } from "react";
 import { useRouter } from "next/navigation";
+import { signIn } from "next-auth/react";
 import Link from "next/link";
 
 /**
  * Page d'inscription.
+ * Crée le compte ET connecte l'utilisateur automatiquement.
  * Accessible via /register
  */
 export default function RegisterPage() {
@@ -22,6 +24,7 @@ export default function RegisterPage() {
     setError(null);
 
     try {
+      // 1. Création du compte
       const res = await fetch("/api/auth/register", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
@@ -36,8 +39,20 @@ export default function RegisterPage() {
         return;
       }
 
-      // Redirige vers la page de connexion
-      router.push("/login?registered=true");
+      // 2. Connexion automatique après inscription
+      const result = await signIn("credentials", {
+        email,
+        password,
+        redirect: false,
+      });
+
+      if (result?.ok) {
+        router.push("/accueil");
+        router.refresh();
+      } else {
+        // Si la connexion échoue, rediriger vers login
+        router.push("/login?registered=true");
+      }
     } catch {
       setError("Impossible de contacter le serveur.");
       setLoading(false);
