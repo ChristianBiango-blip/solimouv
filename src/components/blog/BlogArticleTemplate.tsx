@@ -9,74 +9,78 @@ type BlogArticleTemplateProps = {
 export default function BlogArticleTemplate({
   article,
 }: BlogArticleTemplateProps) {
-  return (
-    <article className="mx-auto max-w-6xl px-4 py-8 sm:px-6 lg:px-8 lg:py-12">
-      <Link
-        href="/blog"
-        className="mb-5 inline-flex items-center gap-2 rounded-full bg-white px-4 py-2 text-sm font-semibold text-brand-primary shadow-[0_12px_30px_rgba(66,0,254,0.12)] transition-all hover:-translate-x-0.5 hover:bg-brand-primary hover:text-white"
-      >
-        <svg
-          aria-hidden="true"
-          viewBox="0 0 24 24"
-          className="h-4 w-4"
-          fill="none"
-          stroke="currentColor"
-          strokeWidth="2"
-          strokeLinecap="round"
-          strokeLinejoin="round"
-        >
-          <path d="M15 18l-6-6 6-6" />
-        </svg>
-        Revenir aux actus
-      </Link>
+  const publishedLabel = new Intl.DateTimeFormat("fr-FR", {
+    day: "numeric",
+    month: "long",
+    year: "numeric",
+  }).format(new Date(article.publishedAt));
 
-      <div className="overflow-hidden rounded-[2.5rem] border border-white/60 bg-white shadow-[0_30px_90px_rgba(66,0,254,0.14)]">
-        <div className="relative aspect-[16/8] min-h-[260px] w-full overflow-hidden bg-[#ece7ff]">
+  return (
+    <article
+      className="mx-auto max-w-[760px] pb-10"
+      aria-labelledby="article-title"
+    >
+      <div className="overflow-hidden bg-white">
+        <div className="relative min-h-[340px] w-full overflow-hidden bg-[#d8d8d8] sm:min-h-[520px]">
           <Image
             src={article.coverImage}
             alt={article.coverAlt}
             fill
             className="object-cover"
             priority
-            sizes="(min-width: 1024px) 1152px, 100vw"
+            sizes="(min-width: 768px) 760px, 100vw"
           />
-          <div className="absolute inset-0 bg-[linear-gradient(180deg,rgba(27,0,91,0.04),rgba(27,0,91,0.58))]" />
-          <div className="absolute inset-x-0 bottom-0 p-6 sm:p-8 lg:p-10">
-            <div className="flex flex-wrap items-center gap-3 text-sm font-semibold text-white">
-              <span className="rounded-full bg-white/14 px-4 py-2 backdrop-blur">
-                {article.category}
-              </span>
-              <span className="rounded-full bg-black/24 px-4 py-2 backdrop-blur">
-                {article.readTime} de lecture
-              </span>
-            </div>
-            <h1 className="mt-4 max-w-4xl text-3xl font-black tracking-[-0.06em] text-white sm:text-5xl lg:text-6xl">
-              {article.title}
-            </h1>
-          </div>
+          <div className="absolute inset-x-0 bottom-0 h-[48%] bg-[linear-gradient(180deg,rgba(255,255,255,0),rgba(255,255,255,1)_78%)]" />
         </div>
 
-        <div className="grid gap-8 px-5 py-8 sm:px-8 lg:grid-cols-[minmax(0,1fr)_280px] lg:gap-12 lg:px-10 lg:py-10">
+        <div className="relative z-10 -mt-16 px-4 pb-6 sm:-mt-[5.6rem] sm:px-[22px] sm:pb-8">
           <div>
             <Link
               href="/blog"
-              className="inline-flex items-center rounded-full bg-brand-primary/8 px-4 py-2 text-sm font-semibold text-brand-primary transition-colors hover:bg-brand-primary hover:text-white"
+              className="inline-flex items-center gap-2 rounded-full bg-[linear-gradient(135deg,#ff6b5c,#ff270b)] px-5 py-2.5 text-[0.8rem] font-medium uppercase tracking-[0.02em] text-white transition-transform hover:-translate-x-0.5 focus-visible:outline-none focus-visible:ring-4 focus-visible:ring-[#ff270b]/25 focus-visible:ring-offset-4"
             >
+              <svg
+                aria-hidden="true"
+                viewBox="0 0 24 24"
+                className="h-4 w-4"
+                fill="none"
+                stroke="currentColor"
+                strokeWidth="2"
+                strokeLinecap="round"
+                strokeLinejoin="round"
+              >
+                <path d="M15 18l-6-6 6-6" />
+              </svg>
               Retour aux actus
             </Link>
 
-            <p className="mt-6 text-lg leading-8 text-gray-700 sm:text-xl">
+            <h1
+              id="article-title"
+              className="mt-4 font-[Georgia,'Times_New_Roman',serif] text-[clamp(2rem,8vw,3.35rem)] leading-[1.14] tracking-[-0.04em] text-[#171717]"
+            >
+              {article.title}
+            </h1>
+
+            <div className="mt-5 flex flex-wrap items-center gap-x-4 gap-y-2 text-[0.94rem] font-medium text-[#615a63]">
+              <time dateTime={article.publishedAt}>{publishedLabel}</time>
+              <span className="h-1.5 w-1.5 rounded-full bg-[#d5ccd7]" />
+              <span aria-label={`${article.readTime} de lecture`}>
+                {article.readTime}
+              </span>
+            </div>
+
+            <p className="mt-[18px] text-base leading-[1.65] text-[#5d5760] sm:text-[1.05rem]">
               {article.intro}
             </p>
 
-            <div className="mt-10 space-y-10">
+            <div className="mt-5 grid gap-[18px] sm:mt-6">
               {article.sections.map((section) => (
                 <section key={section.title}>
-                  <h2 className="text-2xl font-black tracking-[-0.04em] text-gray-950 sm:text-3xl">
+                  <h2 className="mt-2 font-[Georgia,'Times_New_Roman',serif] text-[clamp(1.45rem,5vw,2rem)] leading-[1.2] tracking-[-0.03em] text-[#171717]">
                     {section.title}
                   </h2>
 
-                  <div className="mt-5 space-y-4 text-base leading-8 text-gray-700 sm:text-lg">
+                  <div className="mt-4 grid gap-[18px] text-base leading-[1.7] text-[#4f4a52]">
                     {section.blocks.map((block, index) => {
                       const key = `${section.title}-${block.type}-${index}`;
 
@@ -88,7 +92,7 @@ export default function BlogArticleTemplate({
                         return (
                           <p
                             key={key}
-                            className="rounded-[1.4rem] border border-[#f4d6e9] bg-[#fff3fa] px-5 py-4 font-semibold text-[#5e1d63]"
+                            className="font-bold italic leading-[1.6] text-[#222222]"
                           >
                             {block.content}
                           </p>
@@ -96,14 +100,13 @@ export default function BlogArticleTemplate({
                       }
 
                       return (
-                        <ul key={key} className="space-y-3 pl-1">
+                        <ul
+                          key={key}
+                          className="mt-[-6px] mb-1 ml-5 list-disc pl-0 text-[#4f4a52]"
+                        >
                           {block.items.map((item) => (
-                            <li
-                              key={item}
-                              className="flex items-start gap-3 rounded-[1.2rem] bg-[#f8f7ff] px-4 py-3"
-                            >
-                              <span className="mt-2 h-2.5 w-2.5 shrink-0 rounded-full bg-brand-secondary" />
-                              <span>{item}</span>
+                            <li key={item} className="leading-[1.65] [&+li]:mt-1">
+                              {item}
                             </li>
                           ))}
                         </ul>
@@ -113,44 +116,30 @@ export default function BlogArticleTemplate({
                 </section>
               ))}
             </div>
+            <div className="mt-10 rounded-[1.6rem] bg-[#faf7f2] px-5 py-5">
+              <p className="text-[0.78rem] font-semibold uppercase tracking-[0.18em] text-[#8a8190]">
+                Pour aller plus loin
+              </p>
+              <p className="mt-3 text-[0.98rem] leading-[1.62] text-[#66616a]">
+                Continuez avec les autres actus du festival ou explorez le
+                programme pour préparer votre venue.
+              </p>
+              <div className="mt-5 flex flex-wrap gap-3">
+                <Link
+                  href="/blog"
+                  className="inline-flex rounded-full bg-[#232021] px-5 py-3 text-base font-semibold text-white transition-colors hover:bg-black focus-visible:outline-none focus-visible:ring-4 focus-visible:ring-[#232021]/20 focus-visible:ring-offset-4"
+                >
+                  Voir les autres articles
+                </Link>
+                <Link
+                  href="/atelier"
+                  className="inline-flex rounded-full border border-[#d4cdd7] bg-white px-5 py-3 text-base font-semibold text-[#2c2630] transition-colors hover:border-brand-primary hover:text-brand-primary focus-visible:outline-none focus-visible:ring-4 focus-visible:ring-brand-primary/20 focus-visible:ring-offset-4"
+                >
+                  Voir les ateliers
+                </Link>
+              </div>
+            </div>
           </div>
-
-          <aside className="h-fit rounded-[2rem] bg-[linear-gradient(160deg,#18004f_0%,#4200fe_52%,#f238a7_100%)] p-6 text-white shadow-[0_22px_60px_rgba(66,0,254,0.24)]">
-            <p className="text-sm font-semibold uppercase tracking-[0.24em] text-white/70">
-              À retenir
-            </p>
-            <p className="mt-4 text-2xl font-black tracking-[-0.05em]">
-              Des articles pensés pour rendre le festival plus lisible, plus accueillant et plus concret.
-            </p>
-
-            <div className="mt-6 rounded-[1.6rem] bg-white/12 p-5 backdrop-blur">
-              <p className="text-sm font-semibold uppercase tracking-[0.18em] text-white/70">
-                Publication
-              </p>
-              <p className="mt-2 text-lg font-semibold">
-                {new Intl.DateTimeFormat("fr-FR", {
-                  day: "numeric",
-                  month: "long",
-                  year: "numeric",
-                }).format(new Date(article.publishedAt))}
-              </p>
-            </div>
-
-            <div className="mt-4 rounded-[1.6rem] bg-white/12 p-5 backdrop-blur">
-              <p className="text-sm font-semibold uppercase tracking-[0.18em] text-white/70">
-                Prochaine étape
-              </p>
-              <p className="mt-2 text-base leading-7 text-white/90">
-                Explorer le programme, découvrir les ateliers et préparer sa venue au festival.
-              </p>
-              <Link
-                href="/programme"
-                className="mt-5 inline-flex rounded-full bg-white px-4 py-2 text-sm font-semibold text-brand-primary transition-transform hover:-translate-y-0.5"
-              >
-                Voir le programme
-              </Link>
-            </div>
-          </aside>
         </div>
       </div>
     </article>
