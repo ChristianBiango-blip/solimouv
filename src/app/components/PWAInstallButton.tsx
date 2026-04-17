@@ -21,30 +21,35 @@ export default function PWAInstallButton() {
   const [deferredPrompt, setDeferredPrompt] =
     useState<BeforeInstallPromptEvent | null>(null);
   const [showIOSModal, setShowIOSModal] = useState(false);
-  const [isInstalled, setIsInstalled] = useState(false);
-
-  useEffect(() => {
-    // Vérifie si l'app est déjà installée
-    if (window.matchMedia("(display-mode: standalone)").matches) {
-      setIsInstalled(true);
-      return;
+  const [isInstalled, setIsInstalled] = useState(() => {
+    if (typeof window === "undefined") {
+      return false;
     }
 
+    return window.matchMedia("(display-mode: standalone)").matches;
+  });
+
+  useEffect(() => {
     // Capture l'événement beforeinstallprompt (Android/Chrome)
     const handler = (e: Event) => {
       e.preventDefault();
       setDeferredPrompt(e as BeforeInstallPromptEvent);
     };
 
+    const installHandler = () => {
+      setIsInstalled(true);
+      setDeferredPrompt(null);
+    };
+
     window.addEventListener("beforeinstallprompt", handler);
 
     // Détecte quand l'app a été installée
-    window.addEventListener("appinstalled", () => {
-      setIsInstalled(true);
-      setDeferredPrompt(null);
-    });
+    window.addEventListener("appinstalled", installHandler);
 
-    return () => window.removeEventListener("beforeinstallprompt", handler);
+    return () => {
+      window.removeEventListener("beforeinstallprompt", handler);
+      window.removeEventListener("appinstalled", installHandler);
+    };
   }, []);
 
   /**
@@ -80,10 +85,10 @@ export default function PWAInstallButton() {
     <>
       <button
         onClick={handleInstallClick}
-        className="flex items-center gap-2 rounded-xl border-2 border-brand-primary bg-white px-4 py-2.5 text-sm font-semibold text-brand-primary transition-all hover:bg-brand-primary hover:text-white"
+        className="flex items-center gap-2 rounded-xl border-2 border-brand-primary bg-white px-4 py-2.5 text-sm font-semibold text-brand-primary transition-all hover:bg-brand-primary hover:text-white focus-visible:outline-none focus-visible:ring-4 focus-visible:ring-brand-primary/20"
       >
         <span>📱</span>
-        Installer l'application
+        Installer l&apos;application
       </button>
 
       {/* Modal instructions iOS */}
@@ -102,28 +107,28 @@ export default function PWAInstallButton() {
                 <span className="inline-flex items-center rounded bg-gray-100 px-2 py-0.5 font-mono text-xs">
                   ⬆️ Partager
                 </span>{" "}
-                en bas de l'écran
+                en bas de l&apos;écran
               </li>
               <li className="flex items-start gap-3">
                 <span className="flex h-6 w-6 shrink-0 items-center justify-center rounded-full bg-brand-primary text-xs font-bold text-white">
                   2
                 </span>
                 Faites défiler et appuyez sur{" "}
-                <strong>"Sur l'écran d'accueil"</strong>
+                <strong>&quot;Sur l&apos;écran d&apos;accueil&quot;</strong>
               </li>
               <li className="flex items-start gap-3">
                 <span className="flex h-6 w-6 shrink-0 items-center justify-center rounded-full bg-brand-primary text-xs font-bold text-white">
                   3
                 </span>
                 Appuyez sur{" "}
-                <strong>"Ajouter"</strong> en haut à droite
+                <strong>&quot;Ajouter&quot;</strong> en haut à droite
               </li>
             </ol>
             <button
               onClick={() => setShowIOSModal(false)}
-              className="mt-6 w-full rounded-xl bg-brand-primary py-2.5 text-sm font-semibold text-white transition hover:opacity-90"
+              className="mt-6 w-full rounded-xl bg-brand-primary py-2.5 text-sm font-semibold text-white transition hover:opacity-90 focus-visible:outline-none focus-visible:ring-4 focus-visible:ring-brand-primary/20"
             >
-              J'ai compris !
+              J&apos;ai compris !
             </button>
           </div>
         </div>

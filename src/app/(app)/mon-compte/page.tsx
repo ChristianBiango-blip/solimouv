@@ -8,8 +8,8 @@ const FESTIVAL_LOCATION = "Adresse communiquee apres confirmation";
 
 const participationLinks = [
   {
-    href: "/programme",
-    label: "Voir le programme",
+    href: "/atelier",
+    label: "Voir les ateliers",
     description: "Retrouver les activites et preparer sa prochaine participation.",
     icon: "🗓️",
   },

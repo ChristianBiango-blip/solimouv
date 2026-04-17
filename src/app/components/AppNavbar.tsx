@@ -12,7 +12,7 @@ import PWAInstallButton from "./PWAInstallButton";
  */
 const NAV_LINKS = [
   { href: "/accueil", label: "Accueil", icon: "🏠" },
-  { href: "/programme", label: "Programme", icon: "📅" },
+  { href: "/atelier", label: "Ateliers", icon: "📅" },
   { href: "/blog", label: "Blog", icon: "📰" },
   { href: "/a-propos", label: "À propos", icon: "💡" },
   { href: "/partenaires", label: "Partenaires", icon: "🤝" },

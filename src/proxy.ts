@@ -2,17 +2,7 @@ import { NextResponse } from "next/server";
 import type { NextRequest } from "next/server";
 import { getToken } from "next-auth/jwt";
 
-/**
- * Middleware principal de l'application.
- *
- * Règles :
- * - Pages authentifiées (/accueil, /programme, /a-propos, /partenaires, /dons, /mon-compte, /contact)
- *   → nécessite connexion, sinon redirige vers /connexion
- * - /admin/* → nécessite connexion + rôle "admin"
- * - Utilisateur connecté sur /connexion ou /inscription → redirige vers /accueil
- * - / (landing) → reste public
- */
-export async function middleware(req: NextRequest) {
+export async function proxy(req: NextRequest) {
   const token = await getToken({
     req,
     secret: process.env.NEXTAUTH_SECRET,

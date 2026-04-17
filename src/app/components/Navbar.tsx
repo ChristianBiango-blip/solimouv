@@ -3,6 +3,7 @@
 import { useState } from "react";
 import Link from "next/link";
 import Image from "next/image";
+import { usePathname } from "next/navigation";
 import { useSession, signOut } from "next-auth/react";
 import PWAInstallButton from "./PWAInstallButton";
 
@@ -13,7 +14,7 @@ const PUBLIC_NAV_LINKS = [
   { href: "/", label: "Accueil" },
   { href: "/a-propos", label: "À propos" },
   { href: "/blog", label: "Blog" },
-  { href: "/programme", label: "Programme" },
+  { href: "/atelier", label: "Ateliers" },
   { href: "/dons", label: "Dons" },
   { href: "/contact", label: "Contact" },
 ];
@@ -27,6 +28,7 @@ const PUBLIC_NAV_LINKS = [
 export default function Navbar() {
   const { data: session } = useSession();
   const [isMenuOpen, setIsMenuOpen] = useState(false);
+  const pathname = usePathname();
 
   const closeMenu = () => setIsMenuOpen(false);
 
@@ -35,7 +37,10 @@ export default function Navbar() {
       <div className="container-custom">
         <div className="flex h-16 items-center justify-between gap-3">
           {/* Logo */}
-          <Link href="/" className="flex min-w-0 items-center gap-2">
+          <Link
+            href="/"
+            className="flex min-w-0 items-center gap-2 rounded-xl focus-visible:outline-none focus-visible:ring-4 focus-visible:ring-brand-primary/20"
+          >
             <Image
               src="/solimouv-blanc.svg"
               alt="Solimouv'"
@@ -50,12 +55,13 @@ export default function Navbar() {
 
           {/* Desktop actions */}
           <div className="hidden items-center gap-6 lg:flex">
-            <nav className="flex items-center gap-6">
+            <nav className="flex items-center gap-6" aria-label="Navigation principale">
               {PUBLIC_NAV_LINKS.map((link) => (
                 <Link
                   key={link.href}
                   href={link.href}
-                  className="text-sm font-medium text-gray-600 transition-colors hover:text-brand-primary"
+                  aria-current={pathname === link.href ? "page" : undefined}
+                  className="rounded-lg px-1 py-1 text-sm font-medium text-gray-700 transition-colors hover:text-brand-primary focus-visible:outline-none focus-visible:ring-4 focus-visible:ring-brand-primary/20"
                 >
                   {link.label}
                 </Link>
@@ -70,14 +76,14 @@ export default function Navbar() {
                   {session.user.role === "admin" && (
                     <Link
                       href="/admin/ateliers"
-                      className="rounded-xl bg-gray-100 px-3 py-2 text-xs font-medium text-gray-700 transition-colors hover:bg-gray-200"
+                      className="rounded-xl bg-gray-100 px-3 py-2 text-xs font-medium text-gray-700 transition-colors hover:bg-gray-200 focus-visible:outline-none focus-visible:ring-4 focus-visible:ring-brand-primary/20"
                     >
                       Admin
                     </Link>
                   )}
                   <button
                     onClick={() => signOut({ callbackUrl: "/" })}
-                    className="rounded-xl border-2 border-gray-200 px-4 py-2 text-sm font-medium text-gray-700 transition-all hover:border-brand-primary hover:text-brand-primary"
+                    className="rounded-xl border-2 border-gray-200 px-4 py-2 text-sm font-medium text-gray-700 transition-all hover:border-brand-primary hover:text-brand-primary focus-visible:outline-none focus-visible:ring-4 focus-visible:ring-brand-primary/20"
                   >
                     Déconnexion
                   </button>
@@ -86,13 +92,13 @@ export default function Navbar() {
                 <>
                   <Link
                     href="/connexion"
-                    className="rounded-xl border-2 border-gray-200 px-4 py-2 text-sm font-medium text-gray-700 transition-all hover:border-brand-primary hover:text-brand-primary"
+                    className="rounded-xl border-2 border-gray-200 px-4 py-2 text-sm font-medium text-gray-700 transition-all hover:border-brand-primary hover:text-brand-primary focus-visible:outline-none focus-visible:ring-4 focus-visible:ring-brand-primary/20"
                   >
                     Connexion
                   </Link>
                   <Link
                     href="/inscription"
-                    className="btn-primary rounded-xl px-4 py-2 text-sm"
+                    className="btn-primary rounded-xl px-4 py-2 text-sm focus-visible:outline-none focus-visible:ring-4 focus-visible:ring-brand-primary/20"
                   >
                     Inscription
                   </Link>
@@ -104,7 +110,7 @@ export default function Navbar() {
           {/* Burger button (mobile first) */}
           <button
             onClick={() => setIsMenuOpen(!isMenuOpen)}
-            className="inline-flex items-center justify-center rounded-xl border-2 border-gray-200 bg-white p-2.5 text-gray-700 shadow-sm transition-colors hover:border-brand-primary hover:text-brand-primary lg:hidden"
+            className="inline-flex items-center justify-center rounded-xl border-2 border-gray-200 bg-white p-2.5 text-gray-700 shadow-sm transition-colors hover:border-brand-primary hover:text-brand-primary focus-visible:outline-none focus-visible:ring-4 focus-visible:ring-brand-primary/20 lg:hidden"
             aria-label={isMenuOpen ? "Fermer le menu" : "Ouvrir le menu"}
             aria-expanded={isMenuOpen}
             aria-controls="mobile-nav"
@@ -146,6 +152,7 @@ export default function Navbar() {
       {isMenuOpen && (
         <nav
           id="mobile-nav"
+          aria-label="Navigation mobile"
           className="border-t border-gray-100 bg-white px-4 py-4 shadow-[0_12px_40px_rgba(0,0,0,0.06)] lg:hidden"
         >
           <div className="space-y-2">
@@ -153,8 +160,9 @@ export default function Navbar() {
               <Link
                 key={link.href}
                 href={link.href}
+                aria-current={pathname === link.href ? "page" : undefined}
                 onClick={closeMenu}
-                className="flex items-center justify-between rounded-2xl border border-gray-100 bg-gray-50 px-4 py-3 text-sm font-medium text-gray-700 transition-all hover:border-brand-primary hover:bg-white hover:text-brand-primary"
+                className="flex items-center justify-between rounded-2xl border border-gray-100 bg-gray-50 px-4 py-3 text-sm font-medium text-gray-700 transition-all hover:border-brand-primary hover:bg-white hover:text-brand-primary focus-visible:outline-none focus-visible:ring-4 focus-visible:ring-brand-primary/20"
               >
                 <span>{link.label}</span>
                 <span className="text-xs text-gray-400">→</span>
@@ -174,7 +182,7 @@ export default function Navbar() {
                     <Link
                       href="/admin/ateliers"
                       onClick={closeMenu}
-                      className="block rounded-xl border border-gray-200 px-4 py-3 text-center text-sm font-medium text-gray-700 transition-colors hover:border-brand-primary hover:text-brand-primary"
+                      className="block rounded-xl border border-gray-200 px-4 py-3 text-center text-sm font-medium text-gray-700 transition-colors hover:border-brand-primary hover:text-brand-primary focus-visible:outline-none focus-visible:ring-4 focus-visible:ring-brand-primary/20"
                     >
                       Admin
                     </Link>
@@ -184,7 +192,7 @@ export default function Navbar() {
                       closeMenu();
                       signOut({ callbackUrl: "/" });
                     }}
-                    className="w-full rounded-xl bg-gray-900 px-4 py-3 text-sm font-medium text-white transition-colors hover:bg-gray-800"
+                    className="w-full rounded-xl bg-gray-900 px-4 py-3 text-sm font-medium text-white transition-colors hover:bg-gray-800 focus-visible:outline-none focus-visible:ring-4 focus-visible:ring-brand-primary/20"
                   >
                     Déconnexion
                   </button>
@@ -194,14 +202,14 @@ export default function Navbar() {
                   <Link
                     href="/connexion"
                     onClick={closeMenu}
-                    className="block rounded-xl border border-gray-200 px-4 py-3 text-center text-sm font-medium text-gray-700 transition-colors hover:border-brand-primary hover:text-brand-primary"
+                    className="block rounded-xl border border-gray-200 px-4 py-3 text-center text-sm font-medium text-gray-700 transition-colors hover:border-brand-primary hover:text-brand-primary focus-visible:outline-none focus-visible:ring-4 focus-visible:ring-brand-primary/20"
                   >
                     Connexion
                   </Link>
                   <Link
                     href="/inscription"
                     onClick={closeMenu}
-                    className="btn-primary block rounded-xl px-4 py-3 text-center text-sm"
+                    className="btn-primary block rounded-xl px-4 py-3 text-center text-sm focus-visible:outline-none focus-visible:ring-4 focus-visible:ring-brand-primary/20"
                   >
                     Inscription
                   </Link>
