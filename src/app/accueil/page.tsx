@@ -39,35 +39,24 @@ export default function AccueilPage() {
     <>
       <div className="flex flex-col">
         {/* ─── Hero ──────────────────────────────────────────── */}
-        <section className="relative flex min-h-[720px] flex-col gap-10 overflow-hidden bg-brand-accent px-5 pt-24 pb-20">
+        <section className="relative flex max-h-[720px] flex-col gap-10 overflow-hidden bg-brand-accent px-5 pt-24 pb-20">
           {/* Nav */}
           <MobileNav />
 
-          {/* Floating date/location chips */}
-          <div className="flex justify-center">
-          <div className="relative h-[130px] w-[250px] sm:h-[160px] sm:w-[320px]">
-            <div className="absolute left-0 top-0 -rotate-3">
-              <div className="rounded-2xl bg-[#fbfbfb] px-3 py-1.5 shadow-md sm:px-4 sm:py-2">
-                <span className="font-black italic leading-[1.4] tracking-[-1.2px] text-brand-accent text-[18px] sm:text-[22px] lg:text-[24px]">
-                  LE 6 JUIN
-                </span>
-              </div>
+          {/* Date/lieu pills */}
+          <div className="relative mx-auto h-[170px] w-[320px]">
+            {/* LE 6 JUIN */}
+            <div className="absolute left-[18px] top-0 z-[3] flex h-[60px] w-[170px] -rotate-3 items-center justify-center whitespace-nowrap rounded-full bg-[#efefef] text-[31px] font-black italic leading-none tracking-[-0.03em] text-[#ff2a00] shadow-[0_4px_10px_rgba(0,0,0,0.12)]">
+              LE 6 JUIN
             </div>
-            <div className="absolute left-6 top-[26px] rotate-2 sm:left-8 sm:top-[33px]">
-              <div className="rounded-2xl bg-[#fbfbfb] px-3 py-1.5 shadow-md sm:px-4 sm:py-2">
-                <span className="font-black italic leading-[1.4] tracking-[-1.2px] text-brand-accent text-[18px] sm:text-[22px] lg:text-[24px]">
-                  Au centre sportif
-                </span>
-              </div>
+            {/* Au centre sportif */}
+            <div className="absolute left-[45px] top-[48px] z-[2] flex h-[64px] w-[260px] rotate-2 items-center justify-center whitespace-nowrap rounded-full bg-[#efefef] text-[27px] font-black italic leading-none tracking-[-0.03em] text-[#ff2a00] shadow-[0_4px_10px_rgba(0,0,0,0.12)]">
+              Au centre sportif
             </div>
-            <div className="absolute left-[108px] top-[60px] -rotate-2 sm:left-[155px] sm:top-[75px]">
-              <div className="rounded-2xl bg-[#fbfbfb] px-3 py-1.5 shadow-md sm:px-4 sm:py-2">
-                <span className="font-black italic leading-[1.4] tracking-[-1.2px] text-brand-accent text-[18px] sm:text-[22px] lg:text-[24px]">
-                  Paris 13
-                </span>
-              </div>
+            {/* Paris 13 */}
+            <div className="absolute left-[170px] top-[108px] z-[1] flex h-[56px] w-[140px] -rotate-1 items-center justify-center whitespace-nowrap rounded-full bg-[#efefef] text-[28px] font-black italic leading-none tracking-[-0.03em] text-[#ff2a00] shadow-[0_4px_10px_rgba(0,0,0,0.12)]">
+              Paris 13
             </div>
-          </div>
           </div>
 
           {/* Logo + subtitle + CTA */}
@@ -202,22 +191,27 @@ export default function AccueilPage() {
         </section>
 
         {/* ─── Partenaires ────────────────────────────────── */}
-        <section className="flex flex-col gap-4 px-5 py-8">
-          <h2 className="font-black italic text-[24px] tracking-[-1.4px] text-[#211f1f] leading-[33px]">
+        <section className="flex flex-col gap-4 py-8">
+          <h2 className="px-5 font-black italic text-[24px] tracking-[-1.4px] text-[#211f1f] leading-[33px]">
             Nos partenaires
           </h2>
-          <div
-            className="flex items-center gap-8 overflow-x-auto pb-2"
-            style={{ scrollbarWidth: "none" }}
-          >
-            {PARTNERS.map((src, i) => (
-              <img
-                key={i}
-                src={src}
-                alt={`Partenaire ${i + 1}`}
-                className="h-16 shrink-0 object-contain"
-              />
-            ))}
+          <div className="relative overflow-hidden">
+            {/* Fondus sur les bords */}
+            <div className="pointer-events-none absolute inset-y-0 left-0 z-10 w-10 bg-gradient-to-r from-white to-transparent" />
+            <div className="pointer-events-none absolute inset-y-0 right-0 z-10 w-10 bg-gradient-to-l from-white to-transparent" />
+
+            {/* Piste — 2 jeux identiques pour boucle sans saut */}
+            <div className="flex w-max animate-[marquee_20s_linear_infinite] items-center gap-10 hover:[animation-play-state:paused]">
+              {[...PARTNERS, ...PARTNERS].map((src, i) => (
+                <img
+                  key={i}
+                  src={src}
+                  alt={i < PARTNERS.length ? `Partenaire ${i + 1}` : ""}
+                  aria-hidden={i >= PARTNERS.length}
+                  className="h-14 shrink-0 object-contain"
+                />
+              ))}
+            </div>
           </div>
         </section>
 

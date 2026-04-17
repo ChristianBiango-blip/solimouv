@@ -115,7 +115,7 @@ function ActionRow({
   return (
     <Link
       href={href}
-      className="group flex items-center gap-4 rounded-[1.4rem] border border-gray-200/80 bg-white px-4 py-4 transition-transform duration-200 hover:-translate-y-0.5 hover:border-brand-primary/30 hover:shadow-[0_18px_40px_rgba(66,0,254,0.10)] focus-visible:outline-none focus-visible:ring-4 focus-visible:ring-brand-primary/20"
+      className="group flex flex-col gap-3 rounded-[1.4rem] border border-gray-200/80 bg-white p-4 transition-transform duration-200 hover:-translate-y-0.5 hover:border-brand-primary/30 hover:shadow-[0_18px_40px_rgba(66,0,254,0.10)] focus-visible:outline-none focus-visible:ring-4 focus-visible:ring-brand-primary/20 sm:flex-row sm:items-center sm:gap-4"
     >
       <div
         aria-hidden="true"
@@ -127,7 +127,7 @@ function ActionRow({
         <p className="text-sm font-semibold text-gray-950">{label}</p>
         <p className="mt-1 text-sm leading-5 text-gray-500">{description}</p>
       </div>
-      <div aria-hidden="true" className="text-lg text-gray-300 transition-colors group-hover:text-brand-primary">
+      <div aria-hidden="true" className="hidden text-lg text-gray-300 transition-colors group-hover:text-brand-primary sm:block">
         ›
       </div>
     </Link>
@@ -291,7 +291,7 @@ export default function MonComptePage() {
 
           <SectionCard eyebrow="Participations" title="Mes participations">
             <div className="space-y-4">
-              <div className="grid gap-4 sm:grid-cols-[minmax(0,1.3fr)_minmax(0,0.9fr)]">
+              <div className="grid grid-cols-1 gap-4 sm:grid-cols-[minmax(0,1.3fr)_minmax(0,0.9fr)]">
                 <div className="rounded-[1.6rem] bg-[linear-gradient(135deg,#4200fe_0%,#f238a7_100%)] p-5 text-white">
                   <p className="text-sm text-white/75">Mes participations</p>
                   <div className="mt-3 flex items-end gap-3">
@@ -307,23 +307,6 @@ export default function MonComptePage() {
                   </p>
                 </div>
 
-                <div className="rounded-[1.6rem] border border-gray-200 bg-[#fffaf4] p-5">
-                  <p className="text-sm font-semibold text-gray-600">Localisation</p>
-                  <p className="mt-2 text-lg font-black text-gray-950">{FESTIVAL_LOCATION}</p>
-                  <div className="mt-4 overflow-hidden rounded-[1.4rem] border border-white bg-[linear-gradient(180deg,#f8d7e8_0%,#efe7ff_42%,#ffffff_100%)] p-4">
-                    <div className="relative h-28 rounded-[1.1rem] bg-[linear-gradient(135deg,#ffffff_0%,#f6f7ff_100%)]" aria-hidden="true">
-                      <div className="absolute left-5 top-6 h-2 w-24 rounded-full bg-brand-primary/15" />
-                      <div className="absolute left-16 top-16 h-2 w-20 rounded-full bg-brand-secondary/20" />
-                      <div className="absolute left-10 top-12 h-10 w-10 rounded-full border-8 border-brand-accent/15" />
-                      <div className="absolute left-1/2 top-1/2 flex h-12 w-12 -translate-x-1/2 -translate-y-1/2 items-center justify-center rounded-full bg-gray-950 text-xl text-white shadow-[0_12px_30px_rgba(17,24,39,0.22)]">
-                        <span aria-hidden="true">📍</span>
-                      </div>
-                      <div className="absolute bottom-4 right-4 rounded-full bg-white/90 px-3 py-1 text-xs font-semibold text-gray-700 shadow-sm">
-                        Apercu carte
-                      </div>
-                    </div>
-                  </div>
-                </div>
               </div>
 
               <div className="space-y-3">

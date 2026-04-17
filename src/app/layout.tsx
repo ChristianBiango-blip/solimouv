@@ -1,4 +1,5 @@
 import type { Metadata, Viewport } from "next";
+import localFont from "next/font/local";
 import RegisterServiceWorker from "./register-service-worker";
 import Providers from "./providers";
 import "./globals.css";
@@ -12,6 +13,21 @@ import {
   siteUrl,
   toAbsoluteUrl,
 } from "@/lib/seo";
+
+const ppMori = localFont({
+  src: [
+    { path: "../fonts/ppmori/PPMori-Extralight.otf", weight: "200", style: "normal" },
+    { path: "../fonts/ppmori/PPMori-ExtralightItalic.otf", weight: "200", style: "italic" },
+    { path: "../fonts/ppmori/PPMori-Regular.otf", weight: "400", style: "normal" },
+    { path: "../fonts/ppmori/PPMori-RegularItalic.otf", weight: "400", style: "italic" },
+    { path: "../fonts/ppmori/PPMori-Semibold.otf", weight: "600", style: "normal" },
+    { path: "../fonts/ppmori/PPMori-SemiboldItalic.otf", weight: "600", style: "italic" },
+    { path: "../fonts/ppmori/PPMori-Black.otf", weight: "900", style: "normal" },
+    { path: "../fonts/ppmori/PPMori-BlackItalic.otf", weight: "900", style: "italic" },
+  ],
+  variable: "--font-pp-mori",
+  display: "swap",
+});
 
 export const metadata: Metadata = {
   metadataBase: siteUrl,
@@ -74,11 +90,11 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="fr" className="h-full antialiased">
+    <html lang="fr" className={`h-full antialiased ${ppMori.variable}`}>
       <head>
         <link rel="manifest" href="/site.webmanifest" />
       </head>
-      <body className="min-h-full flex flex-col font-sans">
+      <body className={`min-h-full flex flex-col font-sans ${ppMori.className}`}>
         <a
           href="#main-content"
           className="sr-only absolute left-4 top-4 z-[100] rounded-full bg-white px-4 py-2 text-sm font-semibold text-brand-primary shadow-lg focus:not-sr-only focus:outline-none focus:ring-4 focus:ring-brand-primary/30"

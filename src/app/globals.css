@@ -1,69 +1,6 @@
 @import "tailwindcss";
 
-/* ===== Police PP Mori ===== */
-@font-face {
-  font-family: "PP Mori";
-  src: url("/fonts/ppmori/PPMori-Extralight.otf") format("opentype");
-  font-weight: 200;
-  font-style: normal;
-  font-display: swap;
-}
-
-@font-face {
-  font-family: "PP Mori";
-  src: url("/fonts/ppmori/PPMori-ExtralightItalic.otf") format("opentype");
-  font-weight: 200;
-  font-style: italic;
-  font-display: swap;
-}
-
-@font-face {
-  font-family: "PP Mori";
-  src: url("/fonts/ppmori/PPMori-Regular.otf") format("opentype");
-  font-weight: 400;
-  font-style: normal;
-  font-display: swap;
-}
-
-@font-face {
-  font-family: "PP Mori";
-  src: url("/fonts/ppmori/PPMori-RegularItalic.otf") format("opentype");
-  font-weight: 400;
-  font-style: italic;
-  font-display: swap;
-}
-
-@font-face {
-  font-family: "PP Mori";
-  src: url("/fonts/ppmori/PPMori-Semibold.otf") format("opentype");
-  font-weight: 600;
-  font-style: normal;
-  font-display: swap;
-}
-
-@font-face {
-  font-family: "PP Mori";
-  src: url("/fonts/ppmori/PPMori-SemiboldItalic.otf") format("opentype");
-  font-weight: 600;
-  font-style: italic;
-  font-display: swap;
-}
-
-@font-face {
-  font-family: "PP Mori";
-  src: url("/fonts/ppmori/PPMori-Black.otf") format("opentype");
-  font-weight: 900;
-  font-style: normal;
-  font-display: swap;
-}
-
-@font-face {
-  font-family: "PP Mori";
-  src: url("/fonts/ppmori/PPMori-BlackItalic.otf") format("opentype");
-  font-weight: 900;
-  font-style: italic;
-  font-display: swap;
-}
+/* Police PP Mori chargée via next/font/local (layout.tsx) — variable CSS : --font-pp-mori */
 
 /* ===== Design tokens (variables CSS) ===== */
 :root {
@@ -93,8 +30,8 @@
   --color-background: var(--background);
   --color-foreground: var(--foreground);
 
-  /* Police */
-  --font-sans: "PP Mori", sans-serif;
+  /* Police — utilise la variable injectée par next/font */
+  --font-sans: var(--font-pp-mori), sans-serif;
 
   /* Ombres */
   --shadow-glow: 0 0 40px rgba(66, 0, 254, 0.35);
@@ -112,9 +49,14 @@ html {
 body {
   background: var(--background);
   color: var(--foreground);
-  font-family: "PP Mori", sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+}
+
+h1, h2, h3, h4, h5, h6 {
+  font-weight: 900;
+  font-style: italic;
+  font-size: 1.5rem; /* 24px */
 }
 
 /* ===== Classes utilitaires réutilisables ===== */
@@ -603,10 +545,10 @@ body {
 
 .landing-location-image-block {
   width: 100%;
-  border: 3px solid #f238a7;
+  border: 1px solid #f238a7;
   border-radius: 28px;
   overflow: hidden;
-  box-shadow: 0 20px 60px rgba(242, 56, 167, 0.14);
+  box-shadow: 0 20px 60px rgba(242, 56, 167, 0.10);
 }
 
 .landing-location-image-block img {
@@ -651,19 +593,18 @@ body {
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  flex: 1 1 240px;
-  min-width: 240px;
-  padding: 16px 22px;
-  border-radius: 20px;
-  background: rgba(0, 0, 0, 0.76);
-  color: #ffffff;
+  padding: 16px 30px;
+  border-radius: 999px;
+  background: var(--white);
+  color: var(--black);
   font-weight: 700;
-  transition: transform 180ms ease, background 180ms ease;
+  transition: transform 180ms ease, background 180ms ease, color 180ms ease;
 }
 
 .landing-store-button:hover,
 .landing-store-button:focus-visible {
-  background: rgba(0, 0, 0, 0.88);
+  background: var(--rose);
+  color: var(--white);
   transform: translateY(-2px);
 }
 
@@ -792,14 +733,14 @@ body {
 
 .landing-float-left-top {
   left: 4%;
-  top: 18%;
+  top: 6%;
   transform: rotate(-12deg);
   animation: landing-float-up-down-left 3.8s ease-in-out infinite;
 }
 
 .landing-float-right-top {
   right: 5%;
-  top: 24%;
+  top: 14%;
   transform: rotate(10deg);
   animation: landing-float-up-down-right 4.2s ease-in-out infinite;
 }
@@ -907,6 +848,11 @@ body {
 .landing-submit-button:focus-visible {
   transform: translateY(-2px);
   box-shadow: 0 16px 36px rgba(66, 0, 254, 0.22);
+}
+
+@keyframes marquee {
+  from { transform: translateX(0); }
+  to   { transform: translateX(-50%); }
 }
 
 @keyframes landing-float-up-down-left {
@@ -1181,12 +1127,11 @@ body {
   }
 
   .landing-store-button {
-    width: 100%;
-    min-width: 0;
-    max-width: 280px;
-    padding: 13px 18px;
-    font-size: 0.92rem;
-    border-radius: 18px;
+    width: 260px;
+    max-width: 260px;
+    min-height: 58px;
+    padding: 16px 30px;
+    font-size: 1rem;
   }
 
   .landing-floating-card {

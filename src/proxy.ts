@@ -13,10 +13,12 @@ export async function proxy(req: NextRequest) {
   // Pages authentifiées de l'app
   const authenticatedRoutes = [
     "/accueil",
+    "/atelier",
     "/programme",
     "/a-propos",
     "/partenaires",
     "/dons",
+    "/inscription-festival",
     "/mon-compte",
     "/contact",
   ];
@@ -62,9 +64,12 @@ export const config = {
   matcher: [
     "/",
     "/accueil/:path*",
+    "/atelier/:path*",
     "/programme/:path*",
     "/a-propos/:path*",
     "/partenaires/:path*",
+    "/dons/:path*",
+    "/inscription-festival/:path*",
     "/mon-compte/:path*",
     "/contact/:path*",
     "/admin/:path*",

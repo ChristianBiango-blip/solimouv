@@ -1,6 +1,7 @@
 import { z } from "zod";
 
 export const HANDICAP_OPTIONS = [
+  "aucun",
   "malvoyant",
   "ampute_haut_du_corps",
   "ampute_bas_du_corps",
