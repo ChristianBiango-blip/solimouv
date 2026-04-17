@@ -37,20 +37,15 @@ export default function AccueilPage() {
 
   return (
     <>
-      <div className="flex flex-col" id="main-content">
+      <div className="flex flex-col">
         {/* ─── Hero ──────────────────────────────────────────── */}
-        <section className="relative flex min-h-[720px] flex-col gap-10 overflow-hidden bg-brand-accent px-5 pt-24 pb-20" aria-label="Héro du festival Solimouv">
+        <section className="relative flex min-h-[720px] flex-col gap-10 overflow-hidden bg-brand-accent px-5 pt-24 pb-20">
           {/* Nav */}
           <MobileNav />
 
           {/* Floating date/location chips */}
           <div className="flex justify-center">
-<<<<<<< HEAD
-          <div
-            className="relative h-[130px] w-[250px] sm:h-[160px] sm:w-[320px]"
-            aria-label="Le 6 juin au centre sportif Paris 13"
-            role="note"
-          >
+          <div className="relative h-[130px] w-[250px] sm:h-[160px] sm:w-[320px]">
             <div className="absolute left-0 top-0 -rotate-3">
               <div className="rounded-2xl bg-[#fbfbfb] px-3 py-1.5 shadow-md sm:px-4 sm:py-2">
                 <span className="font-black italic leading-[1.4] tracking-[-1.2px] text-brand-accent text-[18px] sm:text-[22px] lg:text-[24px]">
@@ -73,33 +68,6 @@ export default function AccueilPage() {
               </div>
             </div>
           </div>
-=======
-<div className="relative h-[165px] w-[250px] sm:h-[205px] sm:w-[320px]">
-  <div className="absolute left-[44px] top-0 -rotate-3 sm:left-[57px]">
-    <div className="rounded-2xl bg-[#fbfbfb] px-3 py-1.5 shadow-md sm:px-4 sm:py-2">
-      <span className="font-black italic leading-[1.4] tracking-[-1.2px] text-brand-accent text-[18px] sm:text-[22px] lg:text-[24px]">
-        LE 6 JUIN
-      </span>
-    </div>
-  </div>
-
-  <div className="absolute left-0 top-[60px] rotate-2 sm:top-[77px]">
-    <div className="rounded-2xl bg-[#fbfbfb] px-3 py-1.5 shadow-md sm:px-4 sm:py-2">
-      <span className="font-black italic leading-[1.4] tracking-[-1.2px] text-brand-accent text-[18px] sm:text-[22px] lg:text-[24px]">
-        Au centre sportif
-      </span>
-    </div>
-  </div>
-
-  <div className="absolute left-[56px] top-[120px] -rotate-2 sm:left-[72px] sm:top-[154px]">
-    <div className="rounded-2xl bg-[#fbfbfb] px-3 py-1.5 shadow-md sm:px-4 sm:py-2">
-      <span className="font-black italic leading-[1.4] tracking-[-1.2px] text-brand-accent text-[18px] sm:text-[22px] lg:text-[24px]">
-        Paris 13
-      </span>
-    </div>
-  </div>
-</div>
->>>>>>> 37fdd8f (feat: delete account)
           </div>
 
           {/* Logo + subtitle + CTA */}
