@@ -37,15 +37,19 @@ export default function AccueilPage() {
 
   return (
     <>
-      <div className="flex flex-col">
+      <div className="flex flex-col" id="main-content">
         {/* ─── Hero ──────────────────────────────────────────── */}
-        <section className="relative flex min-h-[720px] flex-col gap-10 overflow-hidden bg-brand-accent px-5 pt-24 pb-20">
+        <section className="relative flex min-h-[720px] flex-col gap-10 overflow-hidden bg-brand-accent px-5 pt-24 pb-20" aria-label="Héro du festival Solimouv">
           {/* Nav */}
           <MobileNav />
 
           {/* Floating date/location chips */}
           <div className="flex justify-center">
-          <div className="relative h-[130px] w-[250px] sm:h-[160px] sm:w-[320px]">
+          <div
+            className="relative h-[130px] w-[250px] sm:h-[160px] sm:w-[320px]"
+            aria-label="Le 6 juin au centre sportif Paris 13"
+            role="note"
+          >
             <div className="absolute left-0 top-0 -rotate-3">
               <div className="rounded-2xl bg-[#fbfbfb] px-3 py-1.5 shadow-md sm:px-4 sm:py-2">
                 <span className="font-black italic leading-[1.4] tracking-[-1.2px] text-brand-accent text-[18px] sm:text-[22px] lg:text-[24px]">

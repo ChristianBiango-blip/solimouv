@@ -89,8 +89,8 @@ export default function FestivalRegistrationPage() {
             </div>
           )}
 
-          <form onSubmit={handleSubmit(onSubmit)} className="flex flex-col gap-6">
-            <div className="grid gap-5 sm:grid-cols-2">
+          <form onSubmit={handleSubmit(onSubmit)} className="flex flex-col gap-8">
+            <div className="grid gap-6 sm:grid-cols-2">
               <Field
                 id="lastName"
                 label="Nom"
@@ -175,7 +175,7 @@ export default function FestivalRegistrationPage() {
               />
             </div>
 
-            <div className="grid gap-5 sm:grid-cols-2">
+            <div className="grid gap-6 sm:grid-cols-2">
               <Field
                 id="email"
                 label="Email"

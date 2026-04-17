@@ -45,7 +45,9 @@ export default function HomeEventCarousel({ events }: HomeEventCarouselProps) {
       <div
         ref={trackRef}
         className="landing-event-track"
+        role="region"
         aria-label="Moments d'événements Solimouv"
+        tabIndex={0}
       >
         {events.map((event) => (
           <article key={event.title} className="landing-event-card">

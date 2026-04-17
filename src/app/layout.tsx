@@ -5,6 +5,8 @@ import "./globals.css";
 import AxeptioWidget from "./components/AxeptioWidget";
 import {
   defaultOgImage,
+  defaultOgImageHeight,
+  defaultOgImageWidth,
   siteDescription,
   siteName,
   siteUrl,
@@ -34,6 +36,8 @@ export const metadata: Metadata = {
       {
         url: toAbsoluteUrl(defaultOgImage),
         alt: "Festival Solimouv' à Paris",
+        width: defaultOgImageWidth,
+        height: defaultOgImageHeight,
       },
     ],
   },

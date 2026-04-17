@@ -82,11 +82,19 @@ function SectionCard({
   children: React.ReactNode;
 }) {
   return (
-    <section className="rounded-[2rem] border border-white/60 bg-white/82 p-5 shadow-[0_24px_80px_rgba(17,24,39,0.08)] backdrop-blur">
+    <section
+      aria-labelledby={`section-${eyebrow.toLowerCase().replace(/\s+/g, "-")}`}
+      className="rounded-[2rem] border border-white/60 bg-white/82 p-5 shadow-[0_24px_80px_rgba(17,24,39,0.08)] backdrop-blur"
+    >
       <p className="text-xs font-semibold uppercase tracking-[0.28em] text-brand-primary/70">
         {eyebrow}
       </p>
-      <h2 className="mt-2 text-xl font-black text-gray-950">{title}</h2>
+      <h2
+        id={`section-${eyebrow.toLowerCase().replace(/\s+/g, "-")}`}
+        className="mt-2 text-xl font-black text-gray-950"
+      >
+        {title}
+      </h2>
       <div className="mt-5">{children}</div>
     </section>
   );
@@ -106,16 +114,20 @@ function ActionRow({
   return (
     <Link
       href={href}
-      className="group flex items-center gap-4 rounded-[1.4rem] border border-gray-200/80 bg-white px-4 py-4 transition-transform duration-200 hover:-translate-y-0.5 hover:border-brand-primary/30 hover:shadow-[0_18px_40px_rgba(66,0,254,0.10)]"
+      className="group flex items-center gap-4 rounded-[1.4rem] border border-gray-200/80 bg-white px-4 py-4 transition-transform duration-200 hover:-translate-y-0.5 hover:border-brand-primary/30 hover:shadow-[0_18px_40px_rgba(66,0,254,0.10)] focus-visible:outline-none focus-visible:ring-4 focus-visible:ring-brand-primary/20"
     >
-      <div className="flex h-12 w-12 shrink-0 items-center justify-center rounded-2xl bg-gray-950 text-xl text-white">
+      {/* Icône décorative — cachée des lecteurs d'écran car redondante avec le label */}
+      <div
+        aria-hidden="true"
+        className="flex h-12 w-12 shrink-0 items-center justify-center rounded-2xl bg-gray-950 text-xl text-white"
+      >
         {icon}
       </div>
       <div className="min-w-0 flex-1">
         <p className="text-sm font-semibold text-gray-950">{label}</p>
         <p className="mt-1 text-sm leading-5 text-gray-500">{description}</p>
       </div>
-      <div className="text-lg text-gray-300 transition-colors group-hover:text-brand-primary">
+      <div aria-hidden="true" className="text-lg text-gray-300 transition-colors group-hover:text-brand-primary">
         ›
       </div>
     </Link>
@@ -128,15 +140,21 @@ export default function MonComptePage() {
   const initials = getInitials(session?.user?.name, session?.user?.email);
 
   return (
-    <div className="min-h-[calc(100vh-4rem)] bg-[radial-gradient(circle_at_top,#ffe1f2_0%,#fff7ea_28%,#f6f7ff_65%,#eef2ff_100%)] pb-28 pt-6 lg:pb-12">
+    <main id="main-content" className="min-h-[calc(100vh-4rem)] bg-[radial-gradient(circle_at_top,#ffe1f2_0%,#fff7ea_28%,#f6f7ff_65%,#eef2ff_100%)] pb-28 pt-6 lg:pb-12">
       <div className="container-custom mx-auto flex max-w-3xl flex-col gap-5">
-        <section className="relative overflow-hidden rounded-[2.5rem] bg-gray-950 px-5 pb-6 pt-7 text-white shadow-[0_30px_120px_rgba(17,24,39,0.30)]">
-          <div className="absolute right-0 top-0 h-40 w-40 rounded-full bg-brand-secondary/30 blur-3xl" />
-          <div className="absolute bottom-0 left-10 h-28 w-28 rounded-full bg-brand-primary/40 blur-3xl" />
+        {/* En-tête profil */}
+        <section aria-label="Profil utilisateur" className="relative overflow-hidden rounded-[2.5rem] bg-gray-950 px-5 pb-6 pt-7 text-white shadow-[0_30px_120px_rgba(17,24,39,0.30)]">
+          <div aria-hidden="true" className="absolute right-0 top-0 h-40 w-40 rounded-full bg-brand-secondary/30 blur-3xl" />
+          <div aria-hidden="true" className="absolute bottom-0 left-10 h-28 w-28 rounded-full bg-brand-primary/40 blur-3xl" />
 
           <div className="relative flex flex-col items-center text-center">
-            <div className="flex h-28 w-28 items-center justify-center rounded-full bg-[linear-gradient(135deg,#4200fe_0%,#8b5cf6_45%,#f238a7_100%)] text-4xl font-black shadow-[0_18px_45px_rgba(66,0,254,0.45)]">
-              {initials}
+            {/* Avatar avec initiales */}
+            <div
+              role="img"
+              aria-label={`Avatar de ${session?.user?.name ?? "l'utilisateur"}`}
+              className="flex h-28 w-28 items-center justify-center rounded-full bg-[linear-gradient(135deg,#4200fe_0%,#8b5cf6_45%,#f238a7_100%)] text-4xl font-black shadow-[0_18px_45px_rgba(66,0,254,0.45)]"
+            >
+              <span aria-hidden="true">{initials}</span>
             </div>
 
             <div className="mt-5 space-y-2">
@@ -177,19 +195,15 @@ export default function MonComptePage() {
               </div>
 
               <div className="rounded-[1.6rem] border border-gray-200 bg-[#fffaf4] p-5">
-                <p className="text-sm font-semibold text-gray-600">
-                  Localisation
-                </p>
-                <p className="mt-2 text-lg font-black text-gray-950">
-                  {FESTIVAL_LOCATION}
-                </p>
+                <p className="text-sm font-semibold text-gray-600">Localisation</p>
+                <p className="mt-2 text-lg font-black text-gray-950">{FESTIVAL_LOCATION}</p>
                 <div className="mt-4 overflow-hidden rounded-[1.4rem] border border-white bg-[linear-gradient(180deg,#f8d7e8_0%,#efe7ff_42%,#ffffff_100%)] p-4">
-                  <div className="relative h-28 rounded-[1.1rem] bg-[linear-gradient(135deg,#ffffff_0%,#f6f7ff_100%)]">
+                  <div className="relative h-28 rounded-[1.1rem] bg-[linear-gradient(135deg,#ffffff_0%,#f6f7ff_100%)]" aria-hidden="true">
                     <div className="absolute left-5 top-6 h-2 w-24 rounded-full bg-brand-primary/15" />
                     <div className="absolute left-16 top-16 h-2 w-20 rounded-full bg-brand-secondary/20" />
                     <div className="absolute left-10 top-12 h-10 w-10 rounded-full border-8 border-brand-accent/15" />
                     <div className="absolute left-1/2 top-1/2 flex h-12 w-12 -translate-x-1/2 -translate-y-1/2 items-center justify-center rounded-full bg-gray-950 text-xl text-white shadow-[0_12px_30px_rgba(17,24,39,0.22)]">
-                      📍
+                      <span aria-hidden="true">📍</span>
                     </div>
                     <div className="absolute bottom-4 right-4 rounded-full bg-white/90 px-3 py-1 text-xs font-semibold text-gray-700 shadow-sm">
                       Apercu carte
@@ -216,7 +230,8 @@ export default function MonComptePage() {
             <button
               type="button"
               onClick={() => signOut({ callbackUrl: "/" })}
-              className="flex w-full items-center justify-between rounded-[1.4rem] border border-red-200 bg-red-50 px-4 py-4 text-left text-red-700 transition-colors hover:bg-red-100"
+              aria-label="Se déconnecter et revenir à l'accueil public"
+              className="flex w-full items-center justify-between rounded-[1.4rem] border border-red-200 bg-red-50 px-4 py-4 text-left text-red-700 transition-colors hover:bg-red-100 focus-visible:outline-none focus-visible:ring-4 focus-visible:ring-red-400/30"
             >
               <div>
                 <p className="text-sm font-semibold">Se deconnecter</p>
@@ -224,7 +239,7 @@ export default function MonComptePage() {
                   Quitter la session et revenir a l&apos;accueil public.
                 </p>
               </div>
-              <span className="text-lg">↗</span>
+              <span aria-hidden="true" className="text-lg">↗</span>
             </button>
           </div>
         </SectionCard>
@@ -237,6 +252,6 @@ export default function MonComptePage() {
           </div>
         </SectionCard>
       </div>
-    </div>
+    </main>
   );
 }
