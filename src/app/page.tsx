@@ -1,49 +1,8 @@
-import type { Metadata } from "next";
 import Image from "next/image";
 import HomeEventCarousel from "./components/HomeEventCarousel";
 import Navbar from "./components/Navbar";
 import LandingHeroCTA from "./components/LandingHeroCTA";
 import LandingAppButtons from "./components/LandingAppButtons";
-import {
-  defaultOgImage,
-  defaultOgImageHeight,
-  defaultOgImageWidth,
-  getFestivalEventSchema,
-  getOrganizationSchema,
-  getWebsiteSchema,
-  siteDescription,
-  siteName,
-  siteOrigin,
-  toAbsoluteUrl,
-} from "@/lib/seo";
-
-export const metadata: Metadata = {
-  title: `${siteName} — Festival Sport & Inclusion, Paris 13`,
-  description: siteDescription,
-  alternates: {
-    canonical: "/",
-  },
-  openGraph: {
-    type: "website",
-    url: siteOrigin,
-    title: `${siteName} — Festival Sport & Inclusion, Paris 13`,
-    description: siteDescription,
-    images: [
-      {
-        url: toAbsoluteUrl(defaultOgImage),
-        alt: "Festival Solimouv' — sport inclusif à Paris",
-        width: defaultOgImageWidth,
-        height: defaultOgImageHeight,
-      },
-    ],
-  },
-  twitter: {
-    card: "summary_large_image",
-    title: `${siteName} — Festival Sport & Inclusion, Paris 13`,
-    description: siteDescription,
-    images: [toAbsoluteUrl(defaultOgImage)],
-  },
-};
 
 const eventCards = [
   {
@@ -81,19 +40,8 @@ const socialLinks = [
 ];
 
 export default function Home() {
-  const structuredData = [
-    getWebsiteSchema(),
-    getOrganizationSchema(),
-    getFestivalEventSchema(),
-  ];
-
   return (
     <>
-      <script
-        type="application/ld+json"
-        suppressHydrationWarning
-        dangerouslySetInnerHTML={{ __html: JSON.stringify(structuredData) }}
-      />
       <Navbar />
       <div className="landing-page" id="hero">
       <section className="landing-hero-shell">
@@ -121,7 +69,7 @@ export default function Home() {
         </section>
       </section>
 
-      <main id="main-content">
+      <main>
         <section className="landing-concept-section" id="concept">
           <div className="landing-concept-visual-wrap">
             <div className="landing-organic-shape" aria-hidden="true"></div>
@@ -169,7 +117,7 @@ export default function Home() {
             <h2>L’adresse du lieu</h2>
 
             <div className="landing-location-block">
-              <h3><span aria-hidden="true">📍</span> Centre Sportif Charles Moureu, 75013 Paris</h3>
+              <h3>📍 Centre Sportif Charles Moureu, 75013 Paris</h3>
               <p>
                 Le rendez-vous se tient au Centre Sportif Charles Moureu, au cœur du
                 13e arrondissement de Paris.
@@ -177,7 +125,7 @@ export default function Home() {
             </div>
 
             <div className="landing-location-block">
-              <h3><span aria-hidden="true">📆</span> Samedi 6 juin 2026 de 10h à 18h</h3>
+              <h3>📆 Samedi 6 juin 2026 de 10h à 18h</h3>
               <p>
                 Une journée complète de rencontres, d’activités et de moments partagés
                 vous attend sur place.
@@ -185,7 +133,7 @@ export default function Home() {
             </div>
 
             <div className="landing-location-block">
-              <h3><span aria-hidden="true">♿</span> Site accessible</h3>
+              <h3>♿ Site accessible</h3>
               <p>
                 Le site est accessible aux personnes à mobilité réduite pour permettre
                 à chacun de profiter de l’événement.
@@ -193,7 +141,7 @@ export default function Home() {
             </div>
 
             <div className="landing-location-block">
-              <h3><span aria-hidden="true">🎟</span> Entrée gratuite</h3>
+              <h3>🎟 Entrée gratuite</h3>
               <p>
                 Entrée gratuite, inscription sur place. Pour toute information
                 complémentaire, écrivez à
@@ -280,7 +228,7 @@ export default function Home() {
               </p>
             </div>
 
-            <nav className="landing-social-links" aria-label="Réseaux sociaux Solimouv">
+            <div className="landing-social-links" aria-label="Réseaux sociaux Solimouv">
               {socialLinks.map((link) => (
                 <a
                   key={link.label}
@@ -290,39 +238,38 @@ export default function Home() {
                   rel="noreferrer"
                   aria-label={link.label}
                 >
-                  <span aria-hidden="true" className="landing-social-icon">{link.icon}</span>
+                  <span className="landing-social-icon">{link.icon}</span>
                 </a>
               ))}
-            </nav>
+            </div>
           </div>
 
           <div className="landing-contact-form-wrap">
-            <form className="landing-contact-form" aria-label="Formulaire de contact" noValidate>
+            <form className="landing-contact-form">
               <div className="landing-form-row">
-                <label htmlFor="contact-first-name">
+                <label>
                   <span>Prénom</span>
-                  <input id="contact-first-name" type="text" name="first-name" placeholder="Votre prénom" autoComplete="given-name" />
+                  <input type="text" name="first-name" placeholder="Votre prénom" />
                 </label>
-                <label htmlFor="contact-last-name">
+                <label>
                   <span>Nom</span>
-                  <input id="contact-last-name" type="text" name="last-name" placeholder="Votre nom" autoComplete="family-name" />
+                  <input type="text" name="last-name" placeholder="Votre nom" />
                 </label>
               </div>
 
-              <label htmlFor="contact-email">
+              <label>
                 <span>Email</span>
-                <input id="contact-email" type="email" name="email" placeholder="vous@exemple.com" autoComplete="email" />
+                <input type="email" name="email" placeholder="vous@exemple.com" />
               </label>
 
-              <label htmlFor="contact-phone">
+              <label>
                 <span>Téléphone</span>
-                <input id="contact-phone" type="tel" name="phone" placeholder="+33 6 00 00 00 00" autoComplete="tel" />
+                <input type="tel" name="phone" placeholder="+33 6 00 00 00 00" />
               </label>
 
-              <label htmlFor="contact-message">
+              <label>
                 <span>Message</span>
                 <textarea
-                  id="contact-message"
                   name="message"
                   rows={5}
                   placeholder="Parlez-nous de votre besoin"

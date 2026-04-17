@@ -4,14 +4,17 @@ import { useState } from "react";
 import { useRouter } from "next/navigation";
 import { signIn } from "next-auth/react";
 import Link from "next/link";
-import Image from "next/image";
 
+/**
+ * Page d'inscription.
+ * Crée le compte ET connecte l'utilisateur automatiquement.
+ * Accessible via /inscription
+ */
 export default function InscriptionPage() {
   const router = useRouter();
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-  const [showPassword, setShowPassword] = useState(false);
   const [error, setError] = useState<string | null>(null);
   const [loading, setLoading] = useState(false);
 
@@ -21,6 +24,7 @@ export default function InscriptionPage() {
     setError(null);
 
     try {
+      // 1. Création du compte
       const res = await fetch("/api/auth/register", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
@@ -35,6 +39,7 @@ export default function InscriptionPage() {
         return;
       }
 
+      // 2. Connexion automatique après inscription
       const result = await signIn("credentials", {
         email,
         password,
@@ -45,6 +50,7 @@ export default function InscriptionPage() {
         router.push("/accueil");
         router.refresh();
       } else {
+        // Si la connexion échoue, rediriger vers connexion
         router.push("/connexion?registered=true");
       }
     } catch {
@@ -54,28 +60,35 @@ export default function InscriptionPage() {
   }
 
   return (
-    <div className="flex min-h-screen flex-col items-center bg-brand-secondary px-6 pb-24 pt-14 gap-16">
-      <Image
-        src="/solimouv-blanc.svg"
-        alt="Solimouv"
-        width={231}
-        height={30}
-        priority
-      />
+    <div className="flex min-h-screen items-center justify-center bg-gray-50 px-4">
+      <div className="w-full max-w-md">
+        {/* En-tête */}
+        <div className="mb-8 text-center">
+          <h1 className="brand-gradient-text text-4xl font-black">
+            Solimouv&apos;
+          </h1>
+          <p className="mt-2 text-gray-500">Créer un compte</p>
+        </div>
 
-      <form
-        onSubmit={handleSubmit}
-        className="flex w-full max-w-[358px] flex-col gap-14"
-      >
-        <div className="flex flex-col gap-6">
+        {/* Formulaire */}
+        <form
+          onSubmit={handleSubmit}
+          className="space-y-5 rounded-2xl bg-white p-8 shadow-glow ring-1 ring-gray-100"
+        >
+          {/* Erreur */}
           {error && (
-            <div className="rounded-lg bg-white/20 px-4 py-3 text-sm text-white">
+            <div className="flex items-center gap-3 rounded-xl bg-red-50 px-4 py-3 text-sm font-medium text-red-600">
+              <span>❌</span>
               {error}
             </div>
           )}
 
-          <div className="flex flex-col gap-2">
-            <label htmlFor="name" className="text-[17px] font-bold text-[#fbfbfb]">
+          {/* Nom */}
+          <div className="space-y-2">
+            <label
+              htmlFor="name"
+              className="block text-sm font-semibold text-gray-700"
+            >
               Nom
             </label>
             <input
@@ -83,88 +96,79 @@ export default function InscriptionPage() {
               type="text"
               value={name}
               onChange={(e) => setName(e.target.value)}
-              placeholder="Nom"
+              placeholder="Votre nom"
               required
-              className="h-[50px] w-full rounded-lg bg-[#fbfbfb] px-4 text-sm text-foreground placeholder:text-[#6c6c6c] outline-none focus:ring-2 focus:ring-white/40"
+              className="w-full rounded-xl border-2 border-gray-200 bg-gray-50 px-4 py-3 text-sm outline-none transition-all placeholder:text-gray-400 focus:border-brand-primary focus:bg-white focus:ring-4 focus:ring-brand-primary/10"
             />
           </div>
 
-          <div className="flex flex-col gap-2">
-            <label htmlFor="email" className="text-[17px] font-bold text-[#fbfbfb]">
-              E-mail
+          {/* Email */}
+          <div className="space-y-2">
+            <label
+              htmlFor="email"
+              className="block text-sm font-semibold text-gray-700"
+            >
+              Email
             </label>
             <input
               id="email"
               type="email"
               value={email}
               onChange={(e) => setEmail(e.target.value)}
-              placeholder="E-mail"
+              placeholder="votre@email.fr"
               required
-              className="h-[50px] w-full rounded-lg bg-[#fbfbfb] px-4 text-sm text-foreground placeholder:text-[#6c6c6c] outline-none focus:ring-2 focus:ring-white/40"
+              className="w-full rounded-xl border-2 border-gray-200 bg-gray-50 px-4 py-3 text-sm outline-none transition-all placeholder:text-gray-400 focus:border-brand-primary focus:bg-white focus:ring-4 focus:ring-brand-primary/10"
             />
           </div>
 
-          <div className="flex flex-col gap-2">
-            <label htmlFor="password" className="text-[17px] font-bold text-[#fbfbfb]">
+          {/* Mot de passe */}
+          <div className="space-y-2">
+            <label
+              htmlFor="password"
+              className="block text-sm font-semibold text-gray-700"
+            >
               Mot de passe
             </label>
-            <div className="relative">
-              <input
-                id="password"
-                type={showPassword ? "text" : "password"}
-                value={password}
-                onChange={(e) => setPassword(e.target.value)}
-                placeholder="Mot de passe"
-                required
-                minLength={6}
-                className="h-[50px] w-full rounded-lg bg-[#fbfbfb] px-4 pr-12 text-sm text-foreground placeholder:text-[#6c6c6c] outline-none focus:ring-2 focus:ring-white/40"
-              />
-              <button
-                type="button"
-                onClick={() => setShowPassword(!showPassword)}
-                aria-label={showPassword ? "Masquer le mot de passe" : "Afficher le mot de passe"}
-                className="absolute right-4 top-1/2 -translate-y-1/2 text-[#6c6c6c]"
-              >
-                {showPassword ? (
-                  <svg width="22" height="15" viewBox="0 0 22 15" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
-                    <path d="M11 0C6 0 1.73 3.11 0 7.5C1.73 11.89 6 15 11 15C16 15 20.27 11.89 22 7.5C20.27 3.11 16 0 11 0ZM11 12.5C8.24 12.5 6 10.26 6 7.5C6 4.74 8.24 2.5 11 2.5C13.76 2.5 16 4.74 16 7.5C16 10.26 13.76 12.5 11 12.5ZM11 4.5C9.34 4.5 8 5.84 8 7.5C8 9.16 9.34 10.5 11 10.5C12.66 10.5 14 9.16 14 7.5C14 5.84 12.66 4.5 11 4.5Z" fill="#6c6c6c" />
-                  </svg>
-                ) : (
-                  <svg width="22" height="18" viewBox="0 0 22 18" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
-                    <path d="M1 1L21 17M9.18 3.37C9.77 3.14 10.38 3 11 3C16 3 20.27 6.11 22 10.5C21.47 11.86 20.7 13.08 19.73 14.11M14.74 14.07C13.6 14.66 12.34 15 11 15C6 15 1.73 11.89 0 7.5C0.88 5.27 2.44 3.38 4.41 2.08M8 10.5C8 8.84 9.34 7.5 11 7.5" stroke="#6c6c6c" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
-                  </svg>
-                )}
-              </button>
-            </div>
+            <input
+              id="password"
+              type="password"
+              value={password}
+              onChange={(e) => setPassword(e.target.value)}
+              placeholder="6 caractères minimum"
+              required
+              minLength={6}
+              className="w-full rounded-xl border-2 border-gray-200 bg-gray-50 px-4 py-3 text-sm outline-none transition-all placeholder:text-gray-400 focus:border-brand-primary focus:bg-white focus:ring-4 focus:ring-brand-primary/10"
+            />
           </div>
-        </div>
 
-        <div className="flex flex-col items-center gap-8">
-          <div className="flex w-full flex-col items-center gap-4">
-            <button
-              type="submit"
-              disabled={loading}
-              className="h-[50px] w-full max-w-[325px] rounded-lg bg-[#211f1f] text-[17px] text-[#fbfbfb] transition-opacity disabled:opacity-50 hover:opacity-90"
-            >
-              {loading ? (
-                <span className="flex items-center justify-center gap-2">
-                  <span className="inline-block h-4 w-4 animate-spin rounded-full border-2 border-white/30 border-t-white" />
-                  Création du compte...
-                </span>
-              ) : (
-                "Créer mon compte"
-              )}
-            </button>
+          {/* Bouton */}
+          <button
+            type="submit"
+            disabled={loading}
+            className="w-full rounded-xl bg-gradient-to-r from-brand-primary via-brand-secondary to-brand-accent py-4 text-base font-semibold text-white shadow-lg transition-all hover:scale-[1.01] hover:shadow-glow disabled:scale-100 disabled:opacity-50"
+          >
+            {loading ? (
+              <span className="flex items-center justify-center gap-2">
+                <span className="inline-block h-4 w-4 animate-spin rounded-full border-2 border-white/30 border-t-white" />
+                Création du compte...
+              </span>
+            ) : (
+              "Créer mon compte"
+            )}
+          </button>
+        </form>
 
-            <Link
-              href="/connexion"
-              className="text-sm text-[#fbfbfb] underline underline-offset-2"
-            >
-              Déjà un compte ? Se connecter
-            </Link>
-          </div>
-        </div>
-      </form>
+        {/* Lien connexion */}
+        <p className="mt-6 text-center text-sm text-gray-400">
+          Déjà un compte ?{" "}
+          <Link
+            href="/connexion"
+            className="font-medium text-brand-primary hover:underline"
+          >
+            Se connecter
+          </Link>
+        </p>
+      </div>
     </div>
   );
 }

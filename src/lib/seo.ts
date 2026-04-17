@@ -10,8 +10,6 @@ export const siteName = "Solimouv'";
 export const siteDescription =
   "Solimouv' est le festival organisé par Up Sport ! qui promeut l'accessibilité du sport pour toutes et tous.";
 export const defaultOgImage = "/blog/event-1.jpeg";
-export const defaultOgImageWidth = 1200;
-export const defaultOgImageHeight = 630;
 
 export function toAbsoluteUrl(path: string) {
   return new URL(path, siteUrl).toString();
@@ -23,28 +21,6 @@ export const socialLinks = [
   "https://www.facebook.com/upsportunispourlesport",
   "https://www.unispourlesport.fr/",
 ];
-
-export function getWebsiteSchema() {
-  return {
-    "@context": "https://schema.org",
-    "@type": "WebSite",
-    "@id": `${siteOrigin}#website`,
-    url: siteOrigin,
-    name: siteName,
-    description: siteDescription,
-    publisher: {
-      "@id": `${siteOrigin}#organization`,
-    },
-    potentialAction: {
-      "@type": "SearchAction",
-      target: {
-        "@type": "EntryPoint",
-        urlTemplate: `${siteOrigin}/blog?q={search_term_string}`,
-      },
-      "query-input": "required name=search_term_string",
-    },
-  };
-}
 
 export function getOrganizationSchema() {
   return {

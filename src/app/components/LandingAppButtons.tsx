@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useEffect, useRef } from "react";
+import { useState, useEffect } from "react";
 import Link from "next/link";
 
 interface BeforeInstallPromptEvent extends Event {
@@ -13,7 +13,6 @@ export default function LandingAppButtons() {
     useState<BeforeInstallPromptEvent | null>(null);
   const [showIOSModal, setShowIOSModal] = useState(false);
   const [isInstalled, setIsInstalled] = useState(false);
-  const closeButtonRef = useRef<HTMLButtonElement>(null);
 
   useEffect(() => {
     setIsInstalled(window.matchMedia("(display-mode: standalone)").matches);
@@ -35,10 +34,6 @@ export default function LandingAppButtons() {
     };
   }, []);
 
-  useEffect(() => {
-    if (showIOSModal) closeButtonRef.current?.focus();
-  }, [showIOSModal]);
-
   const isIOS =
     typeof navigator !== "undefined" &&
     /iPad|iPhone|iPod/.test(navigator.userAgent) &&
@@ -59,11 +54,8 @@ export default function LandingAppButtons() {
 
   return (
     <>
-      <div
-        className="landing-store-buttons"
-        role="group"
-        aria-label="Télécharger et s'inscrire"
-      >
+      <div className="landing-store-buttons">
+        {/* Bouton Inscription */}
         <Link
           href="/inscription"
           className="landing-store-button"
@@ -72,56 +64,44 @@ export default function LandingAppButtons() {
           S&apos;inscrire au festival
         </Link>
 
+        {/* Bouton Télécharger (PWA) — affiché uniquement si installable */}
         {canInstall && (
           <button
             onClick={handleInstall}
             className="landing-store-button"
             style={{ color: "#ffffff" }}
           >
-            <span aria-hidden="true">📱</span>
-            {" "}Télécharger l&apos;app
+            📱 Télécharger l&apos;app
           </button>
         )}
       </div>
 
+      {/* Modal iOS */}
       {showIOSModal && (
-        <div
-          className="fixed inset-0 z-50 flex items-center justify-center bg-black/50 px-4"
-          role="presentation"
-          onClick={(e) => { if (e.target === e.currentTarget) setShowIOSModal(false); }}
-        >
-          <div
-            role="dialog"
-            aria-modal="true"
-            aria-labelledby="app-ios-title"
-            className="w-full max-w-sm rounded-2xl bg-white p-6 shadow-glow"
-          >
-            <h3 id="app-ios-title" className="mb-4 text-lg font-bold text-gray-900">
+        <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/50 px-4">
+          <div className="w-full max-w-sm rounded-2xl bg-white p-6 shadow-glow">
+            <h3 className="mb-4 text-lg font-bold text-gray-900">
               Installer sur iPhone / iPad
             </h3>
             <ol className="space-y-3 text-sm text-gray-600">
               <li className="flex items-start gap-3">
-                <span aria-hidden="true" className="flex h-6 w-6 shrink-0 items-center justify-center rounded-full bg-brand-primary text-xs font-bold text-white">1</span>
+                <span className="flex h-6 w-6 shrink-0 items-center justify-center rounded-full bg-brand-primary text-xs font-bold text-white">1</span>
                 Appuyez sur{" "}
-                <span className="inline-flex items-center rounded bg-gray-100 px-2 py-0.5 font-mono text-xs">
-                  <span aria-hidden="true">⬆️</span>{" "}Partager
-                </span>{" "}
+                <span className="inline-flex items-center rounded bg-gray-100 px-2 py-0.5 font-mono text-xs">⬆️ Partager</span>{" "}
                 en bas de l&apos;écran
               </li>
               <li className="flex items-start gap-3">
-                <span aria-hidden="true" className="flex h-6 w-6 shrink-0 items-center justify-center rounded-full bg-brand-primary text-xs font-bold text-white">2</span>
+                <span className="flex h-6 w-6 shrink-0 items-center justify-center rounded-full bg-brand-primary text-xs font-bold text-white">2</span>
                 Faites défiler et appuyez sur <strong>&quot;Sur l&apos;écran d&apos;accueil&quot;</strong>
               </li>
               <li className="flex items-start gap-3">
-                <span aria-hidden="true" className="flex h-6 w-6 shrink-0 items-center justify-center rounded-full bg-brand-primary text-xs font-bold text-white">3</span>
+                <span className="flex h-6 w-6 shrink-0 items-center justify-center rounded-full bg-brand-primary text-xs font-bold text-white">3</span>
                 Appuyez sur <strong>&quot;Ajouter&quot;</strong> en haut à droite
               </li>
             </ol>
             <button
-              ref={closeButtonRef}
               onClick={() => setShowIOSModal(false)}
-              aria-label="Fermer les instructions d'installation"
-              className="mt-6 w-full rounded-xl bg-brand-primary py-2.5 text-sm font-semibold text-white transition hover:opacity-90 focus-visible:outline-none focus-visible:ring-4 focus-visible:ring-brand-primary/20"
+              className="mt-6 w-full rounded-xl bg-brand-primary py-2.5 text-sm font-semibold text-white transition hover:opacity-90"
             >
               J&apos;ai compris !
             </button>

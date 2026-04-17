@@ -46,18 +46,11 @@ export default function LoginPage() {
 
       <form
         onSubmit={handleSubmit}
-        noValidate
-        aria-label="Formulaire de connexion"
         className="flex w-full max-w-[358px] flex-col gap-14"
       >
         <div className="flex flex-col gap-6">
-          {/* Message d'erreur annoncé dynamiquement aux lecteurs d'écran */}
           {error && (
-            <div
-              role="alert"
-              aria-live="polite"
-              className="rounded-lg bg-white/20 px-4 py-3 text-sm text-white"
-            >
+            <div className="rounded-lg bg-white/20 px-4 py-3 text-sm text-white">
               {error}
             </div>
           )}
@@ -73,7 +66,6 @@ export default function LoginPage() {
               onChange={(e) => setEmail(e.target.value)}
               placeholder="E-mail"
               required
-              autoComplete="email"
               className="h-[50px] w-full rounded-lg bg-[#fbfbfb] px-4 text-sm text-foreground placeholder:text-[#6c6c6c] outline-none focus:ring-2 focus:ring-white/40"
             />
           </div>
@@ -90,16 +82,13 @@ export default function LoginPage() {
                 onChange={(e) => setPassword(e.target.value)}
                 placeholder="Mot de passe"
                 required
-                autoComplete="current-password"
-                aria-describedby="password-hint"
                 className="h-[50px] w-full rounded-lg bg-[#fbfbfb] px-4 pr-12 text-sm text-foreground placeholder:text-[#6c6c6c] outline-none focus:ring-2 focus:ring-white/40"
               />
               <button
                 type="button"
                 onClick={() => setShowPassword(!showPassword)}
                 aria-label={showPassword ? "Masquer le mot de passe" : "Afficher le mot de passe"}
-                aria-pressed={showPassword}
-                className="absolute right-4 top-1/2 -translate-y-1/2 text-[#6c6c6c] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#6c6c6c] rounded"
+                className="absolute right-4 top-1/2 -translate-y-1/2 text-[#6c6c6c]"
               >
                 {showPassword ? (
                   <svg width="22" height="15" viewBox="0 0 22 15" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
@@ -112,9 +101,6 @@ export default function LoginPage() {
                 )}
               </button>
             </div>
-            <span id="password-hint" className="sr-only">
-              Le mot de passe est sensible à la casse.
-            </span>
           </div>
         </div>
 
@@ -123,26 +109,21 @@ export default function LoginPage() {
             <button
               type="submit"
               disabled={loading}
-              aria-busy={loading}
-              className="h-[50px] w-full max-w-[325px] rounded-lg bg-[#211f1f] text-[17px] text-[#fbfbfb] transition-opacity disabled:opacity-50 hover:opacity-90 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white"
+              className="h-[50px] w-full max-w-[325px] rounded-lg bg-[#211f1f] text-[17px] text-[#fbfbfb] transition-opacity disabled:opacity-50 hover:opacity-90"
             >
               {loading ? (
                 <span className="flex items-center justify-center gap-2">
-                  <span
-                    aria-hidden="true"
-                    className="inline-block h-4 w-4 animate-spin rounded-full border-2 border-white/30 border-t-white"
-                  />
-                  Connexion en cours…
+                  <span className="inline-block h-4 w-4 animate-spin rounded-full border-2 border-white/30 border-t-white" />
+                  Connexion...
                 </span>
               ) : (
                 "Se connecter"
               )}
             </button>
 
-            {/* Lien fonctionnel — à remplacer par la vraie page quand elle existe */}
             <Link
-              href="/connexion"
-              className="text-sm text-[#fbfbfb] underline underline-offset-2 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white rounded"
+              href="#"
+              className="text-sm text-[#fbfbfb] underline underline-offset-2"
             >
               mot de passe oublié ?
             </Link>

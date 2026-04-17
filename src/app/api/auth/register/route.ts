@@ -55,13 +55,6 @@ export async function POST(request: Request) {
 
     await collection.insertOne(user);
 
-    // Notification Make — non bloquante
-    fetch("https://hook.eu1.make.com/mhgoli1031geir49tiaht436hplg0in7", {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({ name, email }),
-    }).catch(() => {});
-
     return NextResponse.json(
       {
         success: true,
