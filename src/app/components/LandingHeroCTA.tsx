@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
 import Link from "next/link";
 
 interface BeforeInstallPromptEvent extends Event {
@@ -14,6 +14,7 @@ export default function LandingHeroCTA() {
   const [showIOSModal, setShowIOSModal] = useState(false);
   const [isInstalled, setIsInstalled] = useState(false);
   const [ready, setReady] = useState(false);
+  const closeButtonRef = useRef<HTMLButtonElement>(null);
 
   useEffect(() => {
     setIsInstalled(window.matchMedia("(display-mode: standalone)").matches);
@@ -36,6 +37,10 @@ export default function LandingHeroCTA() {
     };
   }, []);
 
+  useEffect(() => {
+    if (showIOSModal) closeButtonRef.current?.focus();
+  }, [showIOSModal]);
+
   const isIOS =
     typeof navigator !== "undefined" &&
     /iPad|iPhone|iPod/.test(navigator.userAgent) &&
@@ -56,20 +61,14 @@ export default function LandingHeroCTA() {
 
   if (!ready) return null;
 
-  // App déjà installée → CTA inscription
   if (isInstalled) {
     return (
-      <Link
-        href="/inscription"
-        className="landing-download-cta"
-        style={{ color: "#000000" }}
-      >
+      <Link href="/inscription" className="landing-download-cta" style={{ color: "#000000" }}>
         S&apos;inscrire
       </Link>
     );
   }
 
-  // PWA installable → bouton install
   if (canInstall) {
     return (
       <>
@@ -82,30 +81,43 @@ export default function LandingHeroCTA() {
         </button>
 
         {showIOSModal && (
-          <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/50 px-4">
-            <div className="w-full max-w-sm rounded-2xl bg-white p-6 shadow-glow">
-              <h3 className="mb-4 text-lg font-bold text-gray-900">
+          <div
+            className="fixed inset-0 z-50 flex items-center justify-center bg-black/50 px-4"
+            role="presentation"
+            onClick={(e) => { if (e.target === e.currentTarget) setShowIOSModal(false); }}
+          >
+            <div
+              role="dialog"
+              aria-modal="true"
+              aria-labelledby="hero-ios-title"
+              className="w-full max-w-sm rounded-2xl bg-white p-6 shadow-glow"
+            >
+              <h3 id="hero-ios-title" className="mb-4 text-lg font-bold text-gray-900">
                 Installer sur iPhone / iPad
               </h3>
               <ol className="space-y-3 text-sm text-gray-600">
                 <li className="flex items-start gap-3">
-                  <span className="flex h-6 w-6 shrink-0 items-center justify-center rounded-full bg-brand-primary text-xs font-bold text-white">1</span>
+                  <span aria-hidden="true" className="flex h-6 w-6 shrink-0 items-center justify-center rounded-full bg-brand-primary text-xs font-bold text-white">1</span>
                   Appuyez sur{" "}
-                  <span className="inline-flex items-center rounded bg-gray-100 px-2 py-0.5 font-mono text-xs">⬆️ Partager</span>{" "}
+                  <span className="inline-flex items-center rounded bg-gray-100 px-2 py-0.5 font-mono text-xs">
+                    <span aria-hidden="true">⬆️</span>{" "}Partager
+                  </span>{" "}
                   en bas de l&apos;écran
                 </li>
                 <li className="flex items-start gap-3">
-                  <span className="flex h-6 w-6 shrink-0 items-center justify-center rounded-full bg-brand-primary text-xs font-bold text-white">2</span>
+                  <span aria-hidden="true" className="flex h-6 w-6 shrink-0 items-center justify-center rounded-full bg-brand-primary text-xs font-bold text-white">2</span>
                   Appuyez sur <strong>&quot;Sur l&apos;écran d&apos;accueil&quot;</strong>
                 </li>
                 <li className="flex items-start gap-3">
-                  <span className="flex h-6 w-6 shrink-0 items-center justify-center rounded-full bg-brand-primary text-xs font-bold text-white">3</span>
+                  <span aria-hidden="true" className="flex h-6 w-6 shrink-0 items-center justify-center rounded-full bg-brand-primary text-xs font-bold text-white">3</span>
                   Appuyez sur <strong>&quot;Ajouter&quot;</strong>
                 </li>
               </ol>
               <button
+                ref={closeButtonRef}
                 onClick={() => setShowIOSModal(false)}
-                className="mt-6 w-full rounded-xl bg-brand-primary py-2.5 text-sm font-semibold text-white transition hover:opacity-90"
+                aria-label="Fermer les instructions d'installation"
+                className="mt-6 w-full rounded-xl bg-brand-primary py-2.5 text-sm font-semibold text-white transition hover:opacity-90 focus-visible:outline-none focus-visible:ring-4 focus-visible:ring-brand-primary/20"
               >
                 J&apos;ai compris !
               </button>
@@ -116,13 +128,8 @@ export default function LandingHeroCTA() {
     );
   }
 
-  // PWA non disponible → CTA inscription
   return (
-    <Link
-      href="/inscription"
-      className="landing-download-cta"
-      style={{ color: "#000000" }}
-    >
+    <Link href="/inscription" className="landing-download-cta" style={{ color: "#000000" }}>
       S&apos;inscrire
     </Link>
   );

@@ -1,4 +1,28 @@
+import type { Metadata } from "next";
 import Link from "next/link";
+import {
+  getFestivalEventSchema,
+  getOrganizationSchema,
+  siteName,
+  siteOrigin,
+} from "@/lib/seo";
+
+export const metadata: Metadata = {
+  title: "Le Yoga adapté",
+  description:
+    "Découvrez le yoga adapté au Festival Solimouv' le 6 juin 2026 au Centre Sportif Charles Moureu, Paris 13. Une pratique accessible à tous pour le bien-être et la sérénité.",
+  alternates: {
+    canonical: "/atelier/yoga",
+  },
+  openGraph: {
+    type: "website",
+    url: `${siteOrigin}/atelier/yoga`,
+    title: `Le Yoga adapté | ${siteName}`,
+    description:
+      "Découvrez le yoga adapté au Festival Solimouv' le 6 juin 2026 au Centre Sportif Charles Moureu, Paris 13.",
+  },
+  robots: { index: false, follow: false },
+};
 
 // Figma asset URLs — valid 7 days from 2026-04-17
 const YOGA_ICON_SVG =
@@ -93,7 +117,39 @@ const SOCIAL = [
 ];
 
 export default function YogaPage() {
+  const structuredData = {
+    "@context": "https://schema.org",
+    "@type": "Event",
+    name: "Yoga adapté — Festival Solimouv' 2026",
+    description:
+      "Une séance de yoga adapté, accessible à tous, lors du Festival Solimouv' le 6 juin 2026 à Paris 13.",
+    startDate: "2026-06-06T10:00:00+02:00",
+    endDate: "2026-06-06T18:00:00+02:00",
+    eventAttendanceMode: "https://schema.org/OfflineEventAttendanceMode",
+    eventStatus: "https://schema.org/EventScheduled",
+    isAccessibleForFree: true,
+    location: {
+      "@type": "Place",
+      name: "Centre Sportif Charles Moureu",
+      address: {
+        "@type": "PostalAddress",
+        streetAddress: "20 Rue Brillat-Savarin",
+        postalCode: "75013",
+        addressLocality: "Paris",
+        addressCountry: "FR",
+      },
+    },
+    organizer: { "@id": `${siteOrigin}#organization` },
+    superEvent: { "@id": `${siteOrigin}#event` },
+  };
+
   return (
+    <>
+      <script
+        type="application/ld+json"
+        suppressHydrationWarning
+        dangerouslySetInnerHTML={{ __html: JSON.stringify([getOrganizationSchema(), getFestivalEventSchema(), structuredData]) }}
+      />
     <div className="bg-[#211f1f]">
       {/* ── Back nav + title ─────────────────────────────────── */}
       <section className="px-6 pt-6 pb-2">
@@ -148,22 +204,22 @@ export default function YogaPage() {
 
       {/* ── Event stickers ───────────────────────────────────── */}
       <section className="flex flex-col items-center gap-7 px-6 pb-8 pt-4">
-        <div className="relative h-[154px] w-full max-w-xs">
-          <div className="absolute left-[38px] top-0 -rotate-3">
+        <div className="relative h-[205px] w-full max-w-xs">
+          <div className="absolute left-[57px] top-0 -rotate-3">
             <div className="rounded-[20px] bg-white px-[17px] py-[5px] shadow-sm">
               <span className="font-black italic text-[24px] leading-[33px] tracking-[-0.06em] text-brand-accent">
                 LE 6 JUIN
               </span>
             </div>
           </div>
-          <div className="absolute left-0 top-[51px] rotate-2">
+          <div className="absolute left-0 top-[77px] rotate-2">
             <div className="rounded-[20px] bg-white px-[10px] py-[10px] shadow-sm">
               <span className="font-black italic text-[24px] leading-[33px] tracking-[-0.06em] text-brand-accent">
                 Au centre sportif
               </span>
             </div>
           </div>
-          <div className="absolute left-[47px] top-[102px] -rotate-2">
+          <div className="absolute left-[72px] top-[154px] -rotate-2">
             <div className="rounded-[20px] bg-white px-[17px] py-[5px] shadow-sm">
               <span className="font-black italic text-[24px] leading-[33px] tracking-[-0.06em] text-brand-accent">
                 Paris 13
@@ -250,5 +306,6 @@ export default function YogaPage() {
         </div>
       </footer>
     </div>
+    </>
   );
 }
