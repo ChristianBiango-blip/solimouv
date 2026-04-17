@@ -1,23 +1,22 @@
 import type { Metadata, Viewport } from "next";
-import { Geist, Geist_Mono } from "next/font/google";
 import RegisterServiceWorker from "./register-service-worker";
+import Providers from "./providers";
 import "./globals.css";
-
-const geistSans = Geist({
-  variable: "--font-geist-sans",
-  subsets: ["latin"],
-});
-
-const geistMono = Geist_Mono({
-  variable: "--font-geist-mono",
-  subsets: ["latin"],
-});
+import AxeptioWidget from "./components/AxeptioWidget";
 
 export const metadata: Metadata = {
   title: "Solimouv' - Festival Sport & Inclusion",
   description:
     "Solimouv' est le festival organisé par Up Sport ! qui promeut l'accessibilité du sport pour toutes et tous.",
   manifest: "/site.webmanifest",
+  icons: {
+    icon: [
+      { url: "/favicon.svg", type: "image/svg+xml" },
+      { url: "/favicon.ico", sizes: "any" },
+      { url: "/favicon-96x96.png", sizes: "96x96", type: "image/png" },
+    ],
+    apple: "/apple-touch-icon.png",
+  },
   appleWebApp: {
     capable: true,
     statusBarStyle: "default",
@@ -26,7 +25,7 @@ export const metadata: Metadata = {
 };
 
 export const viewport: Viewport = {
-  themeColor: "#ffffff",
+  themeColor: "#4200FE",
   width: "device-width",
   initialScale: 1,
 };
@@ -37,16 +36,18 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html
-      lang="fr"
-      className={`${geistSans.variable} ${geistMono.variable} h-full antialiased`}
-    >
+    <html lang="fr" className="h-full antialiased">
       <head>
         <link rel="manifest" href="/site.webmanifest" />
       </head>
-      <body className="min-h-full flex flex-col">
-        <RegisterServiceWorker />
-        {children}
+      <body className="min-h-full flex flex-col font-sans">
+        <Providers>
+          <RegisterServiceWorker />
+          <div>
+            {children}
+          </div>
+          <AxeptioWidget />
+        </Providers>
       </body>
     </html>
   );
