@@ -1,9 +1,8 @@
 import type { Metadata } from "next";
 import Image from "next/image";
 import HomeEventCarousel from "./components/HomeEventCarousel";
-import Navbar from "./components/Navbar";
-import LandingHeroCTA from "./components/LandingHeroCTA";
-import LandingAppButtons from "./components/LandingAppButtons";
+import Link from "next/link";
+import LandingDownloadButton from "./components/LandingDownloadButton";
 import {
   defaultOgImage,
   defaultOgImageHeight,
@@ -74,10 +73,10 @@ const eventCards = [
 ];
 
 const socialLinks = [
-  { label: "Site internet", href: "https://www.unispourlesport.fr/", icon: "⌂" },
-  { label: "Instagram", href: "https://www.instagram.com/unispourlesport/", icon: "◎" },
-  { label: "LinkedIn", href: "https://www.linkedin.com/company/up-sport-unis-pour-le-sport/", icon: "in" },
-  { label: "Facebook", href: "https://www.facebook.com/upsportunispourlesport", icon: "f" },
+  { label: "Instagram", href: "https://www.instagram.com/unispourlesport/", icon: "/Instagram.svg" },
+  { label: "LinkedIn", href: "https://www.linkedin.com/company/up-sport-unis-pour-le-sport/", icon: "/Linkdin.svg" },
+  { label: "Facebook", href: "https://www.facebook.com/upsportunispourlesport", icon: "/Facebook.svg" },
+  { label: "Site web", href: "https://www.unispourlesport.paris/", icon: "/globe.svg" },
 ];
 
 export default function Home() {
@@ -94,7 +93,26 @@ export default function Home() {
         suppressHydrationWarning
         dangerouslySetInnerHTML={{ __html: JSON.stringify(structuredData) }}
       />
-      <Navbar />
+      {/* Navbar — logo only */}
+      <header className="sticky top-0 z-40 bg-brand-primary">
+        <div className="container-custom">
+          <div className="flex h-16 items-center">
+            <a
+              href="#hero"
+              aria-label="Accueil Solimouv"
+              className="relative h-7 w-36 shrink-0"
+            >
+              <Image
+                src="/blog/blanc-solimouv.svg"
+                alt="Solimouv"
+                fill
+                className="object-contain object-left"
+                priority
+              />
+            </a>
+          </div>
+        </div>
+      </header>
       <div className="landing-page" id="hero">
       <section className="landing-hero-shell">
         <section className="landing-hero">
@@ -103,7 +121,13 @@ export default function Home() {
               Rencontres, activités, engagement, moments partagés
             </p>
             <h1>Vivez des expériences qui vous rapprochent des autres</h1>
-            <LandingHeroCTA />
+            <Link
+              href="/inscription"
+              className="landing-download-cta"
+              style={{ color: "#000000" }}
+            >
+              Inscrivez-vous
+            </Link>
           </div>
 
           <section
@@ -227,32 +251,25 @@ export default function Home() {
             </p>
           </div>
 
-          <LandingAppButtons />
+          <div className="landing-store-buttons">
+            <LandingDownloadButton />
+          </div>
 
-          <div className="landing-phones-stage" aria-label="Aperçu de l'application Solimouv">
+          <div
+            className="relative mx-auto mt-14 w-full max-w-sm sm:max-w-md lg:max-w-lg"
+            aria-label="Aperçu de l'application Solimouv"
+          >
             <div className="landing-floating-card landing-float-left-top">+ 500 participants</div>
             <div className="landing-floating-card landing-float-right-top">15 associations</div>
-
-            <div className="landing-phone landing-phone-left">
-              <div className="landing-phone-screen">
-                <span className="landing-phone-pill"></span>
-                <div className="landing-phone-content landing-phone-content-left"></div>
-              </div>
-            </div>
-
-            <div className="landing-phone landing-phone-center">
-              <div className="landing-phone-screen">
-                <span className="landing-phone-pill"></span>
-                <div className="landing-phone-content landing-phone-content-center"></div>
-              </div>
-            </div>
-
-            <div className="landing-phone landing-phone-right">
-              <div className="landing-phone-screen">
-                <span className="landing-phone-pill"></span>
-                <div className="landing-phone-content landing-phone-content-right"></div>
-              </div>
-            </div>
+            <Image
+              src="/mockup.webp"
+              alt="Capture d'écran de l'application Solimouv"
+              width={1080}
+              height={1350}
+              sizes="(max-width: 640px) 100vw, (max-width: 1024px) 448px, 512px"
+              className="h-auto w-full rounded-3xl shadow-[0_30px_80px_rgba(66,0,254,0.25)]"
+              priority
+            />
           </div>
         </section>
 
@@ -290,7 +307,7 @@ export default function Home() {
                   rel="noreferrer"
                   aria-label={link.label}
                 >
-                  <span aria-hidden="true" className="landing-social-icon">{link.icon}</span>
+                  <Image src={link.icon} alt={link.label} width={20} height={20} />
                 </a>
               ))}
             </nav>

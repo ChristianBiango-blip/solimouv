@@ -1,12 +1,19 @@
-import { NextResponse } from "next/server";
+import { NextRequest, NextResponse } from "next/server";
+import { getToken } from "next-auth/jwt";
 import { getDb } from "@/lib/mongodb";
 import { workshopSchema } from "@/types/workshop";
+import { env } from "@/config/env";
 
 /**
  * POST /api/workshops
  * Crée un nouvel atelier dans la collection "workshops".
  */
-export async function POST(request: Request) {
+export async function POST(request: NextRequest) {
+  const token = await getToken({ req: request, secret: env.NEXTAUTH_SECRET });
+  if (!token || token.role !== "admin") {
+    return NextResponse.json({ error: "Accès interdit." }, { status: 403 });
+  }
+
   try {
     const body = await request.json();
 

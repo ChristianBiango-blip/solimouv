@@ -7,11 +7,10 @@ import { useSession, signOut } from "next-auth/react";
 const NAV_LINKS = [
   { href: "/accueil", label: "Accueil" },
   { href: "/atelier", label: "Ateliers" },
-  { href: "/blog", label: "Blog" },
-  { href: "/partenaires", label: "Partenaires" },
   { href: "/dons", label: "Dons" },
+  { href: "/a-propos", label: "À propos" },
   { href: "/inscription-festival", label: "S'inscrire au festival" },
-  { href: "/contact", label: "Contact" },
+  { href: "/blog", label: "Blog" },
 ];
 
 export default function MobileNav({ className }: { className?: string }) {

@@ -10,9 +10,7 @@ const NAV_LINKS = [
   { href: "/accueil", label: "Accueil" },
   { href: "/atelier", label: "Ateliers" },
   { href: "/blog", label: "Blog" },
-  { href: "/partenaires", label: "Partenaires" },
   { href: "/dons", label: "Dons" },
-  { href: "/contact", label: "Contact" },
 ];
 
 export default function AppNavbar() {

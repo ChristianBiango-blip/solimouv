@@ -17,6 +17,7 @@ const HANDICAP_LABELS: Record<(typeof HANDICAP_OPTIONS)[number], string> = {
   paraplegique: "Paraplégique",
   autisme: "Autisme",
   avc: "Accident vasculaire cérébral (AVC)",
+  aucun: "Aucun",
 };
 
 /**

@@ -204,22 +204,22 @@ export default function YogaPage() {
 
       {/* ── Event stickers ───────────────────────────────────── */}
       <section className="flex flex-col items-center gap-7 px-6 pb-8 pt-4">
-        <div className="relative h-[154px] w-full max-w-xs">
-          <div className="absolute left-[38px] top-0 -rotate-3">
+        <div className="relative h-[205px] w-full max-w-xs">
+          <div className="absolute left-[57px] top-0 -rotate-3">
             <div className="rounded-[20px] bg-white px-[17px] py-[5px] shadow-sm">
               <span className="font-black italic text-[24px] leading-[33px] tracking-[-0.06em] text-brand-accent">
                 LE 6 JUIN
               </span>
             </div>
           </div>
-          <div className="absolute left-0 top-[51px] rotate-2">
+          <div className="absolute left-0 top-[77px] rotate-2">
             <div className="rounded-[20px] bg-white px-[10px] py-[10px] shadow-sm">
               <span className="font-black italic text-[24px] leading-[33px] tracking-[-0.06em] text-brand-accent">
                 Au centre sportif
               </span>
             </div>
           </div>
-          <div className="absolute left-[47px] top-[102px] -rotate-2">
+          <div className="absolute left-[72px] top-[154px] -rotate-2">
             <div className="rounded-[20px] bg-white px-[17px] py-[5px] shadow-sm">
               <span className="font-black italic text-[24px] leading-[33px] tracking-[-0.06em] text-brand-accent">
                 Paris 13

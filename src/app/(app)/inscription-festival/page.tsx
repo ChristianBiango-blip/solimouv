@@ -18,6 +18,7 @@ const SEX_OPTIONS = [
 
 const HANDICAP_LABELS: Record<(typeof HANDICAP_OPTIONS)[number], string> = {
   malvoyant: "Malvoyant",
+  aucun: "Aucun",
   ampute_haut_du_corps: "Amputé haut du corps",
   ampute_bas_du_corps: "Amputé bas du corps",
   malentendant: "Malentendant",
@@ -222,10 +223,10 @@ export default function FestivalRegistrationPage() {
             <div className="flex flex-col gap-2">
               <div>
                 <label className="block text-[17px] font-bold leading-[20px] text-white">
-                  Handicap
+                  Besoins spécifiques
                 </label>
                 <p className="mt-1 text-xs text-white/70">
-                  Sélectionnez une seule option.
+                  Sélectionnez Pour mieux vous accueillir au mieux, sélectionnez une option si besoin.
                 </p>
               </div>
               <Controller

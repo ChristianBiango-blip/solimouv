@@ -1,3 +1,5 @@
+import Link from "next/link";
+
 export type SportCard = {
   id: string;
   label: string;
@@ -6,6 +8,7 @@ export type SportCard = {
   wide?: boolean;
   tall?: boolean;
   extraImage?: string;
+  href?: string;
   keywords: string[];
 };
 
@@ -15,6 +18,7 @@ export const SPORT_CARDS: SportCard[] = [
     label: "Yoga Adapté",
     image: "/yoga.svg",
     badge: "#ff270b",
+    href: "/yoga",
     keywords: ["yoga", "adapte", "adapté", "bien-etre", "bien-être"],
   },
   {
@@ -51,13 +55,9 @@ export const SPORT_CARDS: SportCard[] = [
   },
 ];
 
-function SportCard({ card }: { card: SportCard }) {
+function SportCardInner({ card }: { card: SportCard }) {
   return (
-    <div
-      className={`relative overflow-hidden rounded-[13px] bg-white ${
-        card.tall ? "h-[218px]" : "h-[144px]"
-      } ${card.wide ? "w-full" : "flex-1"}`}
-    >
+    <>
       <span className="absolute left-2.5 top-3 z-10 font-black italic text-[13px] uppercase leading-none tracking-[-0.06em] text-[#211f1f] sm:text-[15px]">
         {card.label}
       </span>
@@ -94,6 +94,30 @@ function SportCard({ card }: { card: SportCard }) {
           style={{ objectPosition: "right bottom" }}
         />
       )}
+    </>
+  );
+}
+
+function SportCard({ card }: { card: SportCard }) {
+  const className = `relative overflow-hidden rounded-[13px] bg-white ${
+    card.tall ? "h-[218px]" : "h-[144px]"
+  } ${card.wide ? "w-full" : "flex-1"}`;
+
+  if (card.href) {
+    return (
+      <Link
+        href={card.href}
+        className={`${className} transition-opacity hover:opacity-90`}
+        aria-label={card.label}
+      >
+        <SportCardInner card={card} />
+      </Link>
+    );
+  }
+
+  return (
+    <div className={className}>
+      <SportCardInner card={card} />
     </div>
   );
 }
