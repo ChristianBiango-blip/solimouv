@@ -1,5 +1,8 @@
 import Image from "next/image";
 import HomeEventCarousel from "./components/HomeEventCarousel";
+import Navbar from "./components/Navbar";
+import LandingHeroCTA from "./components/LandingHeroCTA";
+import LandingAppButtons from "./components/LandingAppButtons";
 
 const eventCards = [
   {
@@ -38,37 +41,17 @@ const socialLinks = [
 
 export default function Home() {
   return (
-    <div className="landing-page">
+    <>
+      <Navbar />
+      <div className="landing-page" id="hero">
       <section className="landing-hero-shell">
-        <header className="landing-site-header">
-          <a className="landing-brand" href="#hero" aria-label="Accueil Solimouv">
-            <Image
-              className="landing-brand-logo"
-              src="/blog/blanc-solimouv.svg"
-              alt="Solimouv"
-              width={172}
-              height={40}
-              priority
-            />
-          </a>
-          <a className="landing-header-cta" href="#contact">
-            Inscrivez-vous
-          </a>
-        </header>
-
-        <section className="landing-hero" id="hero">
+        <section className="landing-hero">
           <div className="landing-hero-copy">
             <p className="landing-hero-kicker">
               Rencontres, activités, engagement, moments partagés
             </p>
             <h1>Vivez des expériences qui vous rapprochent des autres</h1>
-            <a
-              className="landing-download-cta"
-              href="#concept"
-              style={{ color: "#000000" }}
-            >
-              Découvrir
-            </a>
+            <LandingHeroCTA />
           </div>
 
           <section
@@ -192,22 +175,7 @@ export default function Home() {
             </p>
           </div>
 
-          <div className="landing-store-buttons">
-            <a
-              className="landing-store-button"
-              href="#contact"
-              style={{ color: "#ffffff" }}
-            >
-              Disponible sur Google Play
-            </a>
-            <a
-              className="landing-store-button"
-              href="#contact"
-              style={{ color: "#ffffff" }}
-            >
-              Disponible sur App Store
-            </a>
-          </div>
+          <LandingAppButtons />
 
           <div className="landing-phones-stage" aria-label="Aperçu de l'application Solimouv">
             <div className="landing-floating-card landing-float-left-top">+ 500 participants</div>
@@ -316,5 +284,6 @@ export default function Home() {
         </section>
       </main>
     </div>
+    </>
   );
 }

@@ -68,58 +68,15 @@ export default function FestivalRegistrationPage() {
   };
 
   return (
-    <div className="bg-[radial-gradient(circle_at_top_left,rgba(66,0,254,0.12),transparent_28%),radial-gradient(circle_at_top_right,rgba(242,56,167,0.12),transparent_26%),linear-gradient(180deg,#fffaf5_0%,#ffffff_42%,#f8fbff_100%)] px-4 py-10 sm:px-6 lg:px-8">
-      <div className="mx-auto grid max-w-6xl gap-8 lg:grid-cols-[0.9fr_1.1fr] lg:items-start">
-        <section className="rounded-[2rem] bg-[#231f20] p-8 text-white shadow-[0_24px_70px_rgba(35,31,32,0.2)] sm:p-10">
-          <p className="inline-flex rounded-full bg-white/10 px-4 py-2 text-xs font-semibold uppercase tracking-[0.22em] text-white/80">
-            Festival Solimouv'
-          </p>
-          <h1 className="mt-6 text-4xl leading-none font-black italic tracking-[-0.06em] sm:text-6xl">
+    <div className="flex min-h-[calc(100vh-4rem)] items-center justify-center bg-gray-50 px-4 py-10">
+      <div className="w-full max-w-md">
+        <div className="flex flex-col gap-4 rounded-[20px] bg-brand-primary p-4">
+          <h1 className="font-black italic text-2xl leading-[33px] tracking-[-0.06em] text-white">
             Inscription au festival
           </h1>
-          <p className="mt-5 max-w-xl text-lg leading-tight text-white/85 sm:text-xl">
-            Renseignez vos informations pour participer au festival Solimouv'.
-            Nous utilisons ces données pour l'organisation et les besoins
-            d'accessibilité.
-          </p>
-
-          <div className="mt-8 grid gap-3 text-sm text-white/80 sm:grid-cols-2">
-            <div className="rounded-2xl border border-white/10 bg-white/5 p-4">
-              <p className="font-semibold text-white">Inscription rapide</p>
-              <p className="mt-1">Un formulaire court, validé en temps réel.</p>
-            </div>
-            <div className="rounded-2xl border border-white/10 bg-white/5 p-4">
-              <p className="font-semibold text-white">Organisation</p>
-              <p className="mt-1">Les données partent en base et vers Make.</p>
-            </div>
-          </div>
-
-          <div className="mt-8 rounded-2xl bg-[linear-gradient(135deg,#4200fe,#f238a7,#ff270b)] p-5 text-white shadow-glow">
-            <p className="text-sm font-medium uppercase tracking-[0.18em] text-white/85">
-              Besoin d'aide ?
-            </p>
-            <p className="mt-2 text-base leading-tight text-white/95">
-              Si vous avez une question sur l'inscription ou l'accessibilité,
-              contactez l'équipe via la page contact.
-            </p>
-          </div>
-        </section>
-
-        <section className="rounded-[2rem] bg-white p-6 shadow-[0_20px_60px_rgba(35,31,32,0.08)] ring-1 ring-gray-100 sm:p-8">
-          <div className="flex items-start justify-between gap-4">
-            <div>
-              <h2 className="text-2xl font-bold text-gray-900 sm:text-3xl">
-                Formulaire d'inscription
-              </h2>
-              <p className="mt-2 text-sm text-gray-500">
-                Tous les champs sont obligatoires sauf le handicap si vous ne
-                souhaitez rien préciser.
-              </p>
-            </div>
-          </div>
 
           {registrationMutation.isSuccess && (
-            <div className="mt-6 rounded-2xl border border-green-200 bg-green-50 px-4 py-4 text-sm font-medium text-green-700">
+            <div className="rounded-[8px] bg-white/20 px-4 py-3 text-sm font-medium text-white">
               {registrationMutation.data.message}
               {!registrationMutation.data.webhookDelivered &&
                 " L'inscription est bien enregistrée, mais l'envoi automatique au webhook a échoué."}
@@ -127,12 +84,12 @@ export default function FestivalRegistrationPage() {
           )}
 
           {registrationMutation.isError && (
-            <div className="mt-6 rounded-2xl border border-red-200 bg-red-50 px-4 py-4 text-sm font-medium text-red-700">
+            <div className="rounded-[8px] bg-white/20 px-4 py-3 text-sm font-medium text-white">
               {registrationMutation.error.message}
             </div>
           )}
 
-          <form onSubmit={handleSubmit(onSubmit)} className="mt-6 space-y-5">
+          <form onSubmit={handleSubmit(onSubmit)} className="flex flex-col gap-6">
             <div className="grid gap-5 sm:grid-cols-2">
               <Field
                 id="lastName"
@@ -147,7 +104,7 @@ export default function FestivalRegistrationPage() {
                         {...field}
                         id={id}
                         type="text"
-                        placeholder="Votre nom"
+                        placeholder="Nom"
                         className={className}
                       />
                     )}
@@ -168,7 +125,7 @@ export default function FestivalRegistrationPage() {
                         {...field}
                         id={id}
                         type="text"
-                        placeholder="Votre prénom"
+                        placeholder="Prénom"
                         className={className}
                       />
                     )}
@@ -262,12 +219,12 @@ export default function FestivalRegistrationPage() {
               />
             </div>
 
-            <div className="space-y-2">
+            <div className="flex flex-col gap-2">
               <div>
-                <label className="block text-sm font-semibold text-gray-700">
+                <label className="block text-[17px] font-bold leading-[20px] text-white">
                   Handicap
                 </label>
-                <p className="mt-1 text-xs leading-relaxed text-gray-500">
+                <p className="mt-1 text-xs text-white/70">
                   Sélectionnez une seule option.
                 </p>
               </div>
@@ -278,14 +235,13 @@ export default function FestivalRegistrationPage() {
                   <div className="grid gap-3 sm:grid-cols-2">
                     {HANDICAP_OPTIONS.map((option) => {
                       const isChecked = field.value === option;
-
                       return (
                         <label
                           key={option}
-                          className={`flex cursor-pointer items-start gap-3 rounded-2xl border-2 px-4 py-3 text-sm transition-all ${
+                          className={`flex cursor-pointer items-start gap-3 rounded-[8px] px-4 py-3 text-sm transition-all ${
                             isChecked
-                              ? "border-brand-primary bg-brand-primary/5 text-gray-900"
-                              : "border-gray-200 bg-gray-50 text-gray-700 hover:border-brand-primary/40 hover:bg-white"
+                              ? "bg-white text-[#211f1f]"
+                              : "bg-white/20 text-white hover:bg-white/30"
                           }`}
                         >
                           <input
@@ -293,7 +249,7 @@ export default function FestivalRegistrationPage() {
                             name="handicap"
                             checked={isChecked}
                             onChange={() => field.onChange(option)}
-                            className="mt-1 h-4 w-4 rounded border-gray-300 text-brand-primary focus:ring-brand-primary"
+                            className="mt-1 h-4 w-4"
                           />
                           <span className="leading-tight">
                             {HANDICAP_LABELS[option]}
@@ -305,7 +261,7 @@ export default function FestivalRegistrationPage() {
                 )}
               />
               {errors.handicap && (
-                <p className="text-sm font-medium text-red-500">
+                <p className="text-sm font-medium text-white/90">
                   {errors.handicap.message}
                 </p>
               )}
@@ -314,19 +270,19 @@ export default function FestivalRegistrationPage() {
             <button
               type="submit"
               disabled={registrationMutation.isPending}
-              className="w-full rounded-2xl bg-gradient-to-r from-brand-primary via-brand-secondary to-brand-accent px-5 py-4 text-base font-semibold text-white shadow-lg transition-all hover:scale-[1.01] hover:shadow-glow disabled:scale-100 disabled:opacity-50"
+              className="h-[50px] w-full rounded-[8px] bg-[#211f1f] text-[17px] font-bold text-white transition-opacity hover:opacity-90 disabled:opacity-50"
             >
               {registrationMutation.isPending ? (
                 <span className="flex items-center justify-center gap-2">
                   <span className="inline-block h-4 w-4 animate-spin rounded-full border-2 border-white/30 border-t-white" />
-                  Envoi de l'inscription...
+                  Envoi de l&apos;inscription...
                 </span>
               ) : (
                 "S'inscrire au festival"
               )}
             </button>
           </form>
-        </section>
+        </div>
       </div>
     </div>
   );
@@ -345,18 +301,18 @@ function Field({
   error?: string;
   render: (args: { id: string; className: string }) => React.ReactNode;
 }) {
-  const inputClassName = `w-full rounded-2xl border-2 bg-gray-50 px-4 py-3 text-sm outline-none transition-all placeholder:text-gray-400 focus:border-brand-primary focus:bg-white focus:ring-4 focus:ring-brand-primary/10 ${
-    error ? "border-red-400 bg-red-50/50" : "border-gray-200"
+  const inputClassName = `w-full h-[50px] rounded-[8px] bg-white px-4 text-sm text-[#211f1f] outline-none transition-all placeholder:text-[#6c6c6c] focus:ring-2 focus:ring-white/60 ${
+    error ? "ring-2 ring-red-300" : ""
   }`;
 
   return (
-    <div className="space-y-2">
-      <label htmlFor={id} className="block text-sm font-semibold text-gray-700">
+    <div className="flex flex-col gap-2">
+      <label htmlFor={id} className="block text-[17px] font-bold leading-[20px] text-white">
         {label}
       </label>
-      {hint && <p className="text-xs leading-relaxed text-gray-500">{hint}</p>}
+      {hint && <p className="text-xs text-white/70">{hint}</p>}
       {render({ id, className: inputClassName })}
-      {error && <p className="text-sm font-medium text-red-500">{error}</p>}
+      {error && <p className="text-sm font-medium text-white/90">{error}</p>}
     </div>
   );
 }
