@@ -1,16 +1,23 @@
-import { NextResponse } from "next/server";
+import { NextRequest, NextResponse } from "next/server";
 import { ObjectId } from "mongodb";
+import { getToken } from "next-auth/jwt";
 import { getDb } from "@/lib/mongodb";
 import { workshopSchema } from "@/types/workshop";
+import { env } from "@/config/env";
 
 /**
  * PUT /api/workshops/[id]
  * Met à jour un atelier existant.
  */
 export async function PUT(
-  request: Request,
+  request: NextRequest,
   { params }: { params: Promise<{ id: string }> }
 ) {
+  const token = await getToken({ req: request, secret: env.NEXTAUTH_SECRET });
+  if (!token || token.role !== "admin") {
+    return NextResponse.json({ error: "Accès interdit." }, { status: 403 });
+  }
+
   try {
     const { id } = await params;
 
@@ -85,9 +92,14 @@ export async function PUT(
  * Supprime un atelier.
  */
 export async function DELETE(
-  request: Request,
+  request: NextRequest,
   { params }: { params: Promise<{ id: string }> }
 ) {
+  const token = await getToken({ req: request, secret: env.NEXTAUTH_SECRET });
+  if (!token || token.role !== "admin") {
+    return NextResponse.json({ error: "Accès interdit." }, { status: 403 });
+  }
+
   try {
     const { id } = await params;
 

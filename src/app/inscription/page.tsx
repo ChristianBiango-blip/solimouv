@@ -54,7 +54,7 @@ export default function InscriptionPage() {
   }
 
   return (
-    <div className="flex min-h-screen flex-col items-center bg-brand-secondary px-6 pb-24 pt-14 gap-16">
+    <div className="flex min-h-screen flex-col items-center bg-[#211f1f] px-6 pb-24 pt-14 gap-16">
       <Image
         src="/solimouv-blanc.svg"
         alt="Solimouv"
@@ -76,7 +76,7 @@ export default function InscriptionPage() {
 
           <div className="flex flex-col gap-2">
             <label htmlFor="name" className="text-[17px] font-bold text-[#fbfbfb]">
-              Nom
+              Nom et Prénom
             </label>
             <input
               id="name"
@@ -144,7 +144,7 @@ export default function InscriptionPage() {
             <button
               type="submit"
               disabled={loading}
-              className="h-[50px] w-full max-w-[325px] rounded-lg bg-[#211f1f] text-[17px] text-[#fbfbfb] transition-opacity disabled:opacity-50 hover:opacity-90"
+              className="h-[50px] w-full max-w-[325px] rounded-lg bg-brand-secondary text-[17px] text-[#fbfbfb] transition-opacity disabled:opacity-50 hover:opacity-90"
             >
               {loading ? (
                 <span className="flex items-center justify-center gap-2">

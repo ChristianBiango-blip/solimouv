@@ -27,7 +27,7 @@ export default function YogaPage() {
         <div className="mx-auto max-w-2xl">
           <div className="flex items-center gap-4">
             <Link
-              href="/ateliers"
+              href="/atelier"
               aria-label="Retour aux ateliers"
               className="flex h-10 w-10 shrink-0 items-center justify-center text-white/70 transition-colors hover:text-white"
             >
@@ -57,17 +57,6 @@ export default function YogaPage() {
         </div>
       </section>
 
-      {/* Illustration */}
-      <section className="px-6 sm:px-8 lg:px-10">
-        <div className="mx-auto max-w-2xl">
-          <div className="overflow-hidden rounded-[2rem] bg-[#fbfbfb] p-6 shadow-[0_18px_40px_rgba(0,0,0,0.3)]">
-            <div className="h-56 sm:h-72">
-              <YogaIllustration />
-            </div>
-          </div>
-        </div>
-      </section>
-
       {/* Event stickers + CTA */}
       <section className="px-6 pb-12 pt-14 sm:px-8 lg:px-10">
         <div className="mx-auto max-w-2xl">
@@ -93,12 +82,34 @@ export default function YogaPage() {
       </section>
 
       {/* Partenaires */}
-      <section className="bg-white px-6 py-8 text-[#211f1f] sm:px-8 lg:px-10">
-        <div className="mx-auto max-w-2xl">
-          <h2 className="text-[1.5rem] font-black italic leading-none tracking-[-0.06em] sm:text-[2rem]">
+      <section className="overflow-hidden bg-white py-8 text-[#211f1f]">
+        <div className="px-6 sm:px-8 lg:px-10">
+          <h2 className="mx-auto max-w-2xl text-[1.5rem] font-black italic leading-none tracking-[-0.06em] sm:text-[2rem]">
             Nos partenaires
           </h2>
-          <div className="mt-6 flex items-end justify-around gap-6 sm:justify-start sm:gap-16">
+        </div>
+        <div className="relative mt-6 overflow-hidden">
+          {/* Dégradés sur les bords pour un fondu naturel */}
+          <div className="pointer-events-none absolute inset-y-0 left-0 z-10 w-16 bg-gradient-to-r from-white to-transparent" />
+          <div className="pointer-events-none absolute inset-y-0 right-0 z-10 w-16 bg-gradient-to-l from-white to-transparent" />
+
+          {/* Piste animée — 2 jeux identiques pour boucle infinie */}
+          <div
+            className="flex w-max items-end gap-20 animate-[marquee_10s_linear_infinite] hover:[animation-play-state:paused]"
+            aria-hidden="false"
+          >
+            {/* Jeu 1 */}
+            <BerryBoisForetsLogo />
+            <GMALogo />
+            <BerryBoisForetsLogo />
+            <GMALogo />
+            <BerryBoisForetsLogo />
+            <GMALogo />
+            {/* Jeu 2 — copie exacte pour la boucle sans saut */}
+            <BerryBoisForetsLogo />
+            <GMALogo />
+            <BerryBoisForetsLogo />
+            <GMALogo />
             <BerryBoisForetsLogo />
             <GMALogo />
           </div>

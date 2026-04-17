@@ -44,16 +44,16 @@ export default function AdminAccueilPage() {
   const { stats, isLoading } = useStats();
 
   return (
-    <div className="px-8 py-12">
-      <h1 className="text-3xl font-bold text-gray-900">
-        🏠 Tableau de bord
+    <div className="px-4 py-8 sm:px-8 sm:py-12">
+      <h1 className="text-2xl font-bold text-gray-900 sm:text-3xl">
+        <span aria-hidden="true">🏠</span> Tableau de bord
       </h1>
-      <p className="mt-1 text-gray-500">
-        Bienvenue dans l'administration de Solimouv'.
+      <p className="mt-1 text-sm text-gray-500 sm:text-base">
+        Bienvenue dans l&apos;administration de Solimouv&apos;.
       </p>
 
       {/* KPI Cards */}
-      <div className="mt-8 grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3">
+      <div className="mt-6 grid grid-cols-1 gap-4 sm:grid-cols-2 sm:gap-6 lg:grid-cols-3">
         {isLoading ? (
           <>
             {/* Skeletons */}
