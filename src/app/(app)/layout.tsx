@@ -1,10 +1,5 @@
-import AppNavbar from "../components/AppNavbar";
+import MobileNav from "../components/MobileNav";
 
-/**
- * Layout partagé pour toutes les pages authentifiées.
- * Affiche l'AppNavbar + la zone de contenu.
- * La protection d'auth est gérée par le middleware.
- */
 export default function AppLayout({
   children,
 }: {
@@ -12,8 +7,8 @@ export default function AppLayout({
 }) {
   return (
     <div className="min-h-screen">
-      <AppNavbar />
-      <main className="pb-20 lg:pb-0">{children}</main>
+      <MobileNav />
+      <main className="pt-20">{children}</main>
     </div>
   );
 }

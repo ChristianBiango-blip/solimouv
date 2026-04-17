@@ -1,6 +1,6 @@
 import type { Metadata } from "next";
 import { notFound } from "next/navigation";
-import Navbar from "../../components/Navbar";
+import MobileNav from "../../components/MobileNav";
 import BlogArticleTemplate from "@/components/blog/BlogArticleTemplate";
 import { blogArticles, getBlogArticle } from "@/content/blog";
 import {
@@ -82,8 +82,8 @@ export default async function BlogArticlePage({
 
   return (
     <div className="min-h-screen bg-white">
-      <Navbar />
-      <main id="main-content">
+      <MobileNav />
+      <main id="main-content" className="pt-20">
         <script
           type="application/ld+json"
           suppressHydrationWarning

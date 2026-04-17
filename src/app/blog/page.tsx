@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
 import Image from "next/image";
 import Link from "next/link";
-import Navbar from "../components/Navbar";
+import MobileNav from "../components/MobileNav";
 import { blogArticles } from "@/content/blog";
 import {
   getBlogCollectionSchema,
@@ -50,11 +50,11 @@ export default function BlogPage() {
 
   return (
     <div className="min-h-screen bg-[radial-gradient(circle_at_top,#f2ebff_0%,#fcfbf8_20%,#fdfcf9_52%,#ffffff_100%)]">
-      <Navbar />
+      <MobileNav />
 
       <main
         id="main-content"
-        className="mx-auto max-w-[1180px] px-4 pb-16 pt-8 sm:px-6 sm:pb-20 sm:pt-10 lg:px-8"
+        className="mx-auto max-w-[1180px] px-4 pb-16 pt-20 sm:px-6 sm:pb-20 lg:px-8"
       >
         <script
           type="application/ld+json"
