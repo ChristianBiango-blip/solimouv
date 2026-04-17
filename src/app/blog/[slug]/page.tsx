@@ -1,8 +1,16 @@
 import type { Metadata } from "next";
 import { notFound } from "next/navigation";
-import Navbar from "../../components/Navbar";
+import MobileNav from "../../components/MobileNav";
 import BlogArticleTemplate from "@/components/blog/BlogArticleTemplate";
 import { blogArticles, getBlogArticle } from "@/content/blog";
+import {
+  getBlogPostingSchema,
+  getFestivalEventSchema,
+  getOrganizationSchema,
+  siteName,
+  siteOrigin,
+  toAbsoluteUrl,
+} from "@/lib/seo";
 
 type BlogArticlePageProps = {
   params: Promise<{
@@ -29,8 +37,30 @@ export async function generateMetadata({
   }
 
   return {
-    title: `${article.title} | Solimouv'`,
+    title: article.title,
     description: article.description,
+    alternates: {
+      canonical: `/blog/${article.slug}`,
+    },
+    openGraph: {
+      type: "article",
+      url: `${siteOrigin}/blog/${article.slug}`,
+      title: `${article.title} | ${siteName}`,
+      description: article.description,
+      publishedTime: article.publishedAt,
+      images: [
+        {
+          url: toAbsoluteUrl(article.coverImage),
+          alt: article.coverAlt,
+        },
+      ],
+    },
+    twitter: {
+      card: "summary_large_image",
+      title: `${article.title} | ${siteName}`,
+      description: article.description,
+      images: [toAbsoluteUrl(article.coverImage)],
+    },
   };
 }
 
@@ -44,10 +74,23 @@ export default async function BlogArticlePage({
     notFound();
   }
 
+  const structuredData = [
+    getOrganizationSchema(),
+    getFestivalEventSchema(),
+    getBlogPostingSchema(article),
+  ];
+
   return (
-    <div className="min-h-screen bg-[radial-gradient(circle_at_top,#ece8ff_0%,#fff3f8_35%,#fff9ef_65%,#ffffff_100%)]">
-      <Navbar />
-      <main>
+    <div className="min-h-screen bg-white">
+      <MobileNav />
+      <main id="main-content" className="pt-20">
+        <script
+          type="application/ld+json"
+          suppressHydrationWarning
+          dangerouslySetInnerHTML={{
+            __html: JSON.stringify(structuredData),
+          }}
+        />
         <BlogArticleTemplate article={article} />
       </main>
     </div>
